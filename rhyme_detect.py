@@ -13,14 +13,16 @@ from nltk.corpus import cmudict
 #        The whole crowd goes so loud
 #        He opens his mouth, but the words won't come out"
 
-perfect_rhyme = "This is a perfect rhyme \n bitches turn on a dime"
+perfect_rhyme = ["This is a perfect rhyme", "bitches split on a dime"]
 
 sample_text = "Mackerel bat from hell"
 
 transcr = cmudict.dict()
 
+# transcribes the sample string given to the CMU Dictionary.
 results = [transcr[w][0] for w in sample_text.lower().split()]
 
+# let's see the output!
 print(results)
 
 
