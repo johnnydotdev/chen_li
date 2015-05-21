@@ -6,8 +6,8 @@ from nltk.corpus import cmudict
 
 # Sample rhymes as a string, or a list of strings
 # More sample rhymes are located in the text files.
-# Lose Yourself - Eminem
 
+# Lose Yourself - Eminem
 LOSE_YOURSLEF = ["His palms are sweaty, knees weak, arms are heavy",
                  "There's vomit on his sweater already, mom's spaghetti",
                  "He's nervous, but on the surface he looks calm and ready to drop bombs",
@@ -91,31 +91,46 @@ def detect_perfect_rhyme_two_lines(a, b):
         return True
     return False       # else, return False
 
+#######################
+# BEGIN TESTS SECTION #
+#######################
+
+horiz_line()
+print("BEGIN TESTS")
+horiz_line()
+
 if (len(sys.argv) > 1):
-    horiz_line()
+    line_break()
+    print("ARGUMENTS DETECTED")
     print("TEST COMMAND LINE:")
     print("Argument List " + str(sys.argv))
     print("Number of arguments: " + str(len(sys.argv)))
     print("SCRUBBED LINES:")
     print(read_and_scrub_text_file(1))
 
-horiz_line()
+line_break()
 print("TESTING: transcribe_string(SAMPLE_TEXT)")
 sample_transcr = transcribe_string(SAMPLE_TEXT) # test that transcribe_string function works
 print(sample_transcr)                           # Prints out phonemes for "Mackerel bat from hell"
 
-horiz_line()
+line_break()
 print("TESTING: transcribe_list(PERFECT_RHYME)")
 perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
 print(perfect_transcr)                           # output should match what we have below
 
-horiz_line()
+line_break()
 print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching output
 for s in PERFECT_RHYME:
     print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
+#########################
+# BEGIN DETECTION TESTS #
+#########################
+
+line_break()
 horiz_line()
 print("Now comes the detection output:")
+horiz_line()
 
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
