@@ -18,7 +18,7 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
-SAMPLE_TEXT2 = "Wow Jay C is asking for it"
+SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it"
 
 transcr = cmudict.dict()
 
