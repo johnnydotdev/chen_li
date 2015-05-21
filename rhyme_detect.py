@@ -24,6 +24,36 @@ SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it" # that doesn't rhyme, fish can't
 
 transcr = cmudict.dict()
 
+#########################################
+# BEGIN: Functions that act like macros #
+#########################################
+
+def line_break():
+    print("\n")
+
+def horiz_line():
+    print("==============================")
+
+#######################################
+# END: Functions that act like macros #
+#######################################
+
+# read_and_scrub_text_file(i)
+# Description: reads the text file and returns a scrubbed list of strings ready to transcribe
+# param      : i, an integer (>= 1) referring to which argument to open and read
+# return     : a list of scrubbed strings
+
+def read_and_scrub_text_file(i):
+    file_1 = open(sys.argv[1])        # Open text file at first argument of command line in *read* mode
+    file1_lines = file_1.readlines()  # returns list of strings with new line characters at the end
+    lines_scrubbed = []               # initialize empty list for return value
+
+    for s in file1_lines:             # loop through each line read in from the text file
+        lines_scrubbed.append(s[:-1]) # purge the new line characters so now we have a clean list of strings to transcribe
+    file_1.close()                    # close the file to free up resources
+
+    return lines_scrubbed
+
 # transcribe_string(string)
 # Description: transcribes a string into its phonemes and prints the result out.
 # param      : string str to transcribe
@@ -61,27 +91,33 @@ def detect_perfect_rhyme_two_lines(a, b):
         return True
     return False       # else, return False
 
+if (len(sys.argv) > 1):
+    horiz_line()
+    print("TEST COMMAND LINE:")
+    print("Argument List " + str(sys.argv))
+    print("Number of arguments: " + str(len(sys.argv)))
+    print("SCRUBBED LINES:")
+    print(read_and_scrub_text_file(1))
 
+horiz_line()
 print("TESTING: transcribe_string(SAMPLE_TEXT)")
 sample_transcr = transcribe_string(SAMPLE_TEXT) # test that transcribe_string function works
 print(sample_transcr)                           # Prints out phonemes for "Mackerel bat from hell"
 
+horiz_line()
 print("TESTING: transcribe_list(PERFECT_RHYME)")
 perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
 print(perfect_transcr)                           # output should match what we have below
 
+horiz_line()
 print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching output
 for s in PERFECT_RHYME:
-    print(transcribe_string(s))
+    print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
-## transcribe_list ouputs match! yay!
-
+horiz_line()
 print("Now comes the detection output:")
 
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
 
-print("TEST COMMAND LINE:")
-print("Argument List " + str(sys.argv))
-print("Number of arguments: " + str(len(sys.argv)))
