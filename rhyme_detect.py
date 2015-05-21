@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import nltk
 from nltk.corpus import cmudict
 
@@ -81,3 +82,6 @@ print("TEST FOR PERFECT RHYME:")                                          # test
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
 
+print("TEST COMMAND LINE:")
+print("Argument List " + str(sys.argv))
+print("Number of arguments: " + str(len(sys.argv)))
