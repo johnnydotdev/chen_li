@@ -23,17 +23,40 @@ SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it" # that doesn't rhyme, fish can't
 
 transcr = cmudict.dict()
 
-## Description: transcribes a string into its phonemes and prints the result out.
-# param       : string str to transcribe
-# return      : list of lists of phonemes
+# Description: transcribes a string into its phonemes and prints the result out.
+# param      : string str to transcribe
+# return     : list of lists of phonemes
 
 def transcribe_string(string):
     results = [transcr[w][0] for w in string.lower().split()]  # transcribes the sample string given to the CMU Dictionary.
 
     return results
 
-print(transcribe_string(SAMPLE_TEXT)) # Prints out phonemes for "Mackerel bat from hell"
+# Description: converts a list of strings into a list of list of lists of phonemes per word
+# param      : list of strings
+# return     : transcribed list of list of lists of phonemes
 
+def transcribe_list(l):
+    list_transcription = []                             # initialize return value to empty list
+    for w in l:                                         # iterate through each string in argument
+        list_transcription.append(transcribe_string(w)) # transcribe string and append list of phonemes to return value
+
+    return list_transcription
+
+print("TESTING: transcribe_string(SAMPLE_TEXT)")
+sample_transcr = transcribe_string(SAMPLE_TEXT) # test that transcribe_string function works
+print(sample_transcr)                           # Prints out phonemes for "Mackerel bat from hell"
+
+print("TESTING: transcribe_list(PERFECT_RHYME)")
+perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
+print(perfect_transcr)                           # output should match what we have below
+
+print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)")
 for s in PERFECT_RHYME:
     print(transcribe_string(s))
+
+## transcribe_list ouputs match! yay!
+
+print("Now comes the detection output:")
+
 
