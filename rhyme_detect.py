@@ -37,7 +37,10 @@ PERFECT_RHYME = ["This is a perfect rhyme",
                  "bitches split on a dime"]
 
 BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
-                        "The method will know this and not be a dick"]
+                       "The method will know this and not be a dick"]
+
+ALLITERATION_RHYME = ["Look I was gonna go easy on you and not to hurt your feelings",
+                      "But I'm only going to get this one chance"]
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
@@ -115,6 +118,14 @@ def detect_perfect_rhyme_two_lines(a, b):
     if a[-1] == b[-1]: # if the items at the last indices match, return True
         return True
     return False       # else, return False
+
+# still works, coming back to it after HOC break
+def detect_alliteration(a, b):
+    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    b_transcr = transcribe_string(b) # Transcribe string b into its pronunciations
+
+    print a_transcr
+    print b_transcr
 
 # syllable_count(word)
 # Description: counts the number of syllables in a transcribed word
@@ -299,23 +310,30 @@ line_break()
 print("TEST SYLLABLE_WORD METHOD:")
 print "wonderful"
 print syllable_word((transcribe_string("wonderful")))
-print len(syllable_word((transcribe_string("wonderful"))))
+print len(syllable_word((transcribe_string("wonderful"))))  # Expected: 3 yay!
 line_break()
 print "hello"
 print syllable_word((transcribe_string("hello")))
-print len(syllable_word((transcribe_string("hello"))))
+print len(syllable_word((transcribe_string("hello"))))  # Expected: 2 yay!
 line_break()
 print "bottle"
 print syllable_word((transcribe_string("bottle")))
-print len(syllable_word((transcribe_string("bottle"))))
+print len(syllable_word((transcribe_string("bottle"))))  # Expected: 2 yay!
 line_break()
 print "clocks"
 print syllable_word((transcribe_string("clocks")))
-print len(syllable_word((transcribe_string("clocks"))))
+print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
 
 ########################
 # END SYLLABLE TESTS #
 ########################
+
+line_break()
+horiz_line()
+print("TEST DETECT_ALLITERATION:")
+horiz_line()
+
+detect_alliteration()
 
 #####################
 # END TEST SECTION #
