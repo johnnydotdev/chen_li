@@ -18,6 +18,8 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
+SAMPLE_TEXT2 = "Wow Jay C is asking for it"
+
 transcr = cmudict.dict()
 
 ## Description: transcribes a string into its phonemes and prints the result out.
