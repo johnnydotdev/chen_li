@@ -151,10 +151,8 @@ def syllable_word(phonemes):
 def syllables_list(l):
     ret = []
 
-    for w in l:                         # for every word in the list
-       word_syllable = syllable_word(w) # syllable-ize that word
-       for x in word_syllable:          # for every syllable of that word
-           ret.append(x)                # add it to a big list that we're going to return
+    for w in l:                     # for every word in the list
+       ret.append(syllable_word(w)) # syllable-ize that word
 
     return ret
 
