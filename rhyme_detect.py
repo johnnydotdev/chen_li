@@ -49,10 +49,16 @@ def transcribe_list(l):
 # Description: detects a perfect rhyme (definition below) between 2 passed strings
 #            : perfect rhyme: a rhyme in which the endings of words sound exactly the same
 #            : http://genius.com/posts/24-Rap-genius-university-rhyme-types
-# param      : *transcribed* string 1, *transcribed* string 2
+# param      : *un-transcribed* string 1, *un-transcribed* string 2
 # return     : True if perfect rhyme detected, False if not
 
 def detect_perfect_rhyme_two_lines(a, b):
+    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    b_transcr = transcribe_string(b) # Transcribe string b into its pronunciations
+
+    if a[-1] == b[-1]: # if the items at the last indices match, return True
+        return True
+    return False       # else, return False
 
 
 print("TESTING: transcribe_string(SAMPLE_TEXT)")
