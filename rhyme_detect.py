@@ -4,6 +4,7 @@ import nltk
 from nltk.corpus import cmudict
 
 # Sample rhymes as a string, or a list of strings
+# More sample rhymes are located in the text files.
 # Lose Yourself - Eminem
 
 LOSE_YOURSLEF = ["His palms are sweaty, knees weak, arms are heavy",
@@ -18,13 +19,13 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
-SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it"
+SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it" # that doesn't rhyme, fish can't rap
 
 transcr = cmudict.dict()
 
 ## Description: transcribes a string into its phonemes and prints the result out.
-# param: string str to transcribe
-# return: list of lists of phonemes
+# param       : string str to transcribe
+# return      : list of lists of phonemes
 
 def transcribe_string(string):
     results = [transcr[w][0] for w in string.lower().split()]  # transcribes the sample string given to the CMU Dictionary.
