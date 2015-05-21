@@ -1,1 +1,2 @@
--[Everyday - A$AP Rocky](https://open.spotify.com/track/0HCVUpGn7trUlx9rOlxZIK)
+- [Everyday - A$AP Rocky](https://open.spotify.com/track/0HCVUpGn7trUlx9rOlxZIK)
+- [Hol Up - Kendrick Lamar](https://open.spotify.com/track/5DO1SazQppcsKQ1c1JpyQz)
