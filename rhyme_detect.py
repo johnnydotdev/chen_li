@@ -135,24 +135,28 @@ def syllable_count(phonemes):
 def syllable_word(phonemes):
     ret = []
 
-    for x in phonemes:
+    for x in phonemes:          # iterate through phonemes for that word
         temp = []
         for y in x:
             temp.append(y)
-            if y[-1].isdigit():
+            if y[-1].isdigit(): # if the phoneme ends in a digit, then we know it's the end of that syllable 
                 ret.append(temp)
                 temp = []
-
-    ret.append(temp)
+    ret.append(temp)            # don't forget the ending syllable 
 
     return ret
 
 # syllables_list(l)
 # Description: we want a 
 def syllables_list(l):
-    word_syllables = []
-    for w in l:
-       word_syllables.append(syllable_word(w)) 
+    ret = []
+
+    for w in l:                         # for every word in the list
+       word_syllable = syllable_word(w) # syllable-ize that word
+       for x in word_syllable:          # for every syllable of that word
+           ret.append(x)                # add it to a big list that we're going to return
+
+    return ret
 
 # find_matching_phonemes(a, b)
 # Description: finds matching phonemes between a, b, and returns a list of booleans corresponding with indices and whether they match
@@ -162,10 +166,15 @@ def syllables_list(l):
 
 # i'm too tired for comments right now check the google doc i left an explanation therrre
 def find_matching_phonemes(a, b):
-    syllables_a = []
-    syllables_b = []
+    syllables_a = syllables_list(a)
+    syllables_b = syllables_list(b)
+    
+    print("DO THEY HAVE THE SAME NUM OF SYLLALBES?")
+    print(len(syllables_a))
+    print(len(syllables_b))
 
     return
+
 #    comb = [a, b]
 #    tot = [[],[]]
 #    ret = []
