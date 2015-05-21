@@ -38,7 +38,7 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
-SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it" # that doesn't rhyme, fish can't rap
+SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap, happy?
 
 transcr = cmudict.dict()
 
@@ -146,10 +146,27 @@ def find_matching_phonemes(a, b):
 
     return ret
 
+# syllable_count(word)
+# Description: counts the number of syllables in word
+#            : this only works for a single word, not a line
+# param      : string word
+# return     : integer number of syllables
+
+def syllable_count(word):
+    ret = 0
+    for x in transcr[word.lower()]:
+        for y in x:
+            if y[-1].isdigit():         # if the phoneme ends in a number, marks a syllable
+                ret+=1
+    return ret;
 
 #######################
 # BEGIN: TEST SECTION #
 #######################
+
+#########################
+# BEGIN SCRUB TESTS #
+#########################
 
 horiz_line()
 print("BEGIN TESTS")
@@ -187,6 +204,10 @@ print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching outp
 for s in PERFECT_RHYME:
     print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
+########################
+# END SCRUB TESTS #
+########################
+
 #########################
 # BEGIN DETECTION TESTS #
 #########################
@@ -205,12 +226,28 @@ line_break()
 print("TEST FOR MATCHING PHONEMES:")
 print(find_matching_phonemes(transcribe_string(PERFECT_RHYME[0]), transcribe_string(PERFECT_RHYME[1])))
 
+########################
+# END DETECTION TESTS #
+########################
+
+#########################
+# BEGIN SYLLABLE TESTS #
+#########################
+
+line_break()
+horiz_line()
+print("Jay C in the hiz-house testing dem syllables:")
+horiz_line()
+
+line_break()
+print("TEST FOR SINGLE WORD:")
+print("AMAZING")
+print(syllable_count("amazing"))
 
 ########################
-# END: DETECTION TESTS #
+# END SYLLABLE TESTS #
 ########################
 
 #####################
-# END: TEST SECTION #
+# END TEST SECTION #
 #####################
-
