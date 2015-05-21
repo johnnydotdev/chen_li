@@ -266,9 +266,9 @@ print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expe
 
 
 line_break()
-print("TEST FOR PERFECT RHYME:")                                            # test that perfect rhyme detection works
-print(BREAK_PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
-print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: True (yay!)
+print("TEST FOR PERFECT RHYME:")                                            # test that perfect rhyme doesnt give false positives
+print(BREAK_PERFECT_RHYME)                                                  # 'This is NOT a perfect rhyme and with some luck', 'The method will know this and not be a dick']
+print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: False (boo! :( )
 
 line_break()
 print("TEST FOR MATCHING PHONEMES:")
