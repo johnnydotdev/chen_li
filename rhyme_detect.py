@@ -1,11 +1,25 @@
 #!/usr/bin/python
 
+#############################################
+# TODO: add error detection and error messages
+# TODO: add better perfect rhyme detection
+# TODO: add scoring
+# TODO: add support for more than 1 text file
+# TODO: add detection of more rhymes
+# TODO: lots of other shit basically
+#############################################
+
 import sys
 import nltk
 from nltk.corpus import cmudict
 
-# Sample rhymes as a string, or a list of strings
-# More sample rhymes are located in the text files.
+###########################
+# BEGIN: GLOBAL VARIABLES #
+###########################
+
+# Sample rhymes in the form of a string, or a list of strings
+# More sample rhymes are located in the text files
+# Import text files by using command line arguments
 
 # Lose Yourself - Eminem
 LOSE_YOURSLEF = ["His palms are sweaty, knees weak, arms are heavy",
@@ -23,6 +37,10 @@ SAMPLE_TEXT = "Mackerel bat from hell"
 SAMPLE_TEXT2 = "Wowwwww Jay C is asking for it" # that doesn't rhyme, fish can't rap
 
 transcr = cmudict.dict()
+
+#########################
+# END: GLOBAL VARIABLES #
+#########################
 
 #########################################
 # BEGIN: Functions that act like macros #
@@ -92,7 +110,7 @@ def detect_perfect_rhyme_two_lines(a, b):
     return False       # else, return False
 
 #######################
-# BEGIN TESTS SECTION #
+# BEGIN: TEST SECTION #
 #######################
 
 horiz_line()
@@ -132,7 +150,17 @@ horiz_line()
 print("Now comes the detection output:")
 horiz_line()
 
+line_break()
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
+
+
+########################
+# END: DETECTION TESTS #
+########################
+
+#####################
+# END: TEST SECTION #
+#####################
 
