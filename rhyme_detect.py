@@ -113,6 +113,47 @@ def detect_perfect_rhyme_two_lines(a, b):
         return True
     return False       # else, return False
 
+# syllable_count(word)
+# Description: counts the number of syllables in a transcribed word
+#            : this only works for a single word, not a line
+# param      : list of phonemes (a transcribed string word)
+# return     : integer number of syllables
+
+def syllable_count(phonemes):
+    ret = 0
+    for x in phonemes:
+        for y in x:
+            if y[-1].isdigit():         # if the phoneme ends in a number, marks a syllable
+                ret+=1
+    return ret
+
+# syllable_word(phonemes)
+# Description: returns a list with each element representing the phonemes that make up a syllable in that word
+# param      : list of phonemes (a transcribed string word)
+# return     : list of lists of phonemes; each element of the main list constitutes a syllable
+
+def syllable_word(phonemes):
+    ret = []
+
+    for x in phonemes:
+        temp = []
+        for y in x:
+            temp.append(y)
+            if y[-1].isdigit():
+                ret.append(temp)
+                temp = []
+
+    ret.append(temp)
+
+    return ret
+
+# syllables_list(l)
+# Description: we want a 
+def syllables_list(l):
+    word_syllables = []
+    for w in l:
+       word_syllables.append(syllable_word(w)) 
+
 # find_matching_phonemes(a, b)
 # Description: finds matching phonemes between a, b, and returns a list of booleans corresponding with indices and whether they match
 #            : this is going to be really hacky
@@ -121,44 +162,35 @@ def detect_perfect_rhyme_two_lines(a, b):
 
 # i'm too tired for comments right now check the google doc i left an explanation therrre
 def find_matching_phonemes(a, b):
-    comb = [a, b]
-    tot = [[],[]]
-    ret = []
+    syllables_a = []
+    syllables_b = []
 
-    min_length = 999999
-    counter = 0
+    return
+#    comb = [a, b]
+#    tot = [[],[]]
+#    ret = []
+#
+#    min_length = 999999
+#    counter = 0
+#
+#    for i in range(len(comb)):
+#        for s in comb[i]:
+#            for x in s:
+#                counter += 1
+#                tot[i].append(x)
+#        
+#        if (counter < min_length):
+#            min_length = counter
+#        counter = 0
+#
+#    for i in range(min_length - 1):
+#        if tot[0][i] == tot[1][i]:
+#            ret.append(True)
+#        else:
+#            ret.append(False)
+#
+#    return ret
 
-    for i in range(len(comb)):
-        for s in comb[i]:
-            for x in s:
-                counter += 1
-                tot[i].append(x)
-        
-        if (counter < min_length):
-            min_length = counter
-        counter = 0
-
-    for i in range(min_length - 1):
-        if tot[0][i] == tot[1][i]:
-            ret.append(True)
-        else:
-            ret.append(False)
-
-    return ret
-
-# syllable_count(word)
-# Description: counts the number of syllables in word
-#            : this only works for a single word, not a line
-# param      : string word
-# return     : integer number of syllables
-
-def syllable_count(word):
-    ret = 0
-    for x in transcr[word.lower()]:
-        for y in x:
-            if y[-1].isdigit():         # if the phoneme ends in a number, marks a syllable
-                ret+=1
-    return ret;
 
 #######################
 # BEGIN: TEST SECTION #
@@ -240,9 +272,11 @@ print("Jay C in the hiz-house testing dem syllables:")
 horiz_line()
 
 line_break()
-print("TEST FOR SINGLE WORD:")
+print("TEST FOR SINGLE WORD:") # next test: mack-er-el
 print("AMAZING")
-print(syllable_count("amazing"))
+print(syllable_count(transcribe_string("amazing")))
+print(syllable_word(transcribe_string("amazing")))
+print(transcribe_string("amazing"))
 
 ########################
 # END SYLLABLE TESTS #
