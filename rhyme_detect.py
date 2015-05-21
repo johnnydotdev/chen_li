@@ -7,6 +7,10 @@
 # TODO: add support for more than 1 text file
 # TODO: add detection of more rhymes
 # TODO: lots of other shit basically
+# TODO: separate methods from testing
+# TODO: change methods to use already transcribed strings (you know, speed probably)
+########################## big one
+# TODO: measure *based on syllables*
 #############################################
 
 import sys
@@ -109,6 +113,40 @@ def detect_perfect_rhyme_two_lines(a, b):
         return True
     return False       # else, return False
 
+# find_matching_phonemes(a, b)
+# Description: finds matching phonemes between a, b, and returns a list of booleans corresponding with indices and whether they match
+#            : this is going to be really hacky
+# param      : list of phonemes a, list of phonemes b
+# return     : list of booleans
+
+# i'm too tired for comments right now check the google doc i left an explanation therrre
+def find_matching_phonemes(a, b):
+    comb = [a, b]
+    tot = [[],[]]
+    ret = []
+
+    min_length = 999999
+    counter = 0
+
+    for i in range(len(comb)):
+        for s in comb[i]:
+            for x in s:
+                counter += 1
+                tot[i].append(x)
+        
+        if (counter < min_length):
+            min_length = counter
+        counter = 0
+
+    for i in range(min_length - 1):
+        if tot[0][i] == tot[1][i]:
+            ret.append(True)
+        else:
+            ret.append(False)
+
+    return ret
+
+
 #######################
 # BEGIN: TEST SECTION #
 #######################
@@ -135,6 +173,14 @@ line_break()
 print("TESTING: transcribe_list(PERFECT_RHYME)")
 perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
 print(perfect_transcr)                           # output should match what we have below
+print("WHAT ARE THE LENGTHS OF EACH TRANSCRIPTION")
+arr = [0,0]
+for i in range(len(perfect_transcr)):
+    for t in perfect_transcr[i]:
+        for s in t:
+            arr[i] += 1
+print(arr)
+
 
 line_break()
 print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching output
@@ -154,6 +200,10 @@ line_break()
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
+
+line_break()
+print("TEST FOR MATCHING PHONEMES:")
+print(find_matching_phonemes(transcribe_string(PERFECT_RHYME[0]), transcribe_string(PERFECT_RHYME[1])))
 
 
 ########################
