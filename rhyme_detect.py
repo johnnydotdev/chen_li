@@ -77,4 +77,7 @@ for s in PERFECT_RHYME:
 
 print("Now comes the detection output:")
 
+print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
+print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
+print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
 
