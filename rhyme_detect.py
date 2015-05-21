@@ -137,7 +137,7 @@ def syllable_count(phonemes):
 
 def syllable_word(phonemes):
     ret = []
-
+    count = 1
     for x in phonemes:          # iterate through phonemes for that word
         temp = []
         for y in x:
@@ -145,8 +145,9 @@ def syllable_word(phonemes):
             if y[-1].isdigit(): # if the phoneme ends in a digit, then we know it's the end of that syllable 
                 ret.append(temp)
                 temp = []
-    ret.append(temp)            # don't forget the ending syllable 
-
+        if (len(phonemes) == count) and not(len(temp) == 0):          # tack on last few phonemes if there are any left
+            ret[-1] = ret[-1] + temp
+        count += 1
     return ret
 
 # syllables_list(l)
@@ -293,6 +294,24 @@ print("AMAZING")
 print(syllable_count(transcribe_string("amazing")))
 print(syllable_word(transcribe_string("amazing")))
 print(transcribe_string("amazing"))
+
+line_break()
+print("TEST SYLLABLE_WORD METHOD:")
+print "wonderful"
+print syllable_word((transcribe_string("wonderful")))
+print len(syllable_word((transcribe_string("wonderful"))))
+line_break()
+print "hello"
+print syllable_word((transcribe_string("hello")))
+print len(syllable_word((transcribe_string("hello"))))
+line_break()
+print "bottle"
+print syllable_word((transcribe_string("bottle")))
+print len(syllable_word((transcribe_string("bottle"))))
+line_break()
+print "clocks"
+print syllable_word((transcribe_string("clocks")))
+print len(syllable_word((transcribe_string("clocks"))))
 
 ########################
 # END SYLLABLE TESTS #
