@@ -36,6 +36,9 @@ LOSE_YOURSLEF = ["His palms are sweaty, knees weak, arms are heavy",
 PERFECT_RHYME = ["This is a perfect rhyme", 
                  "bitches split on a dime"]
 
+BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
+                        "The method will know this and not be a dick"]
+
 SAMPLE_TEXT = "Mackerel bat from hell"
 
 SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap, happy?
@@ -260,6 +263,12 @@ line_break()
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
+
+
+line_break()
+print("TEST FOR PERFECT RHYME:")                                            # test that perfect rhyme detection works
+print(BREAK_PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
+print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: True (yay!)
 
 line_break()
 print("TEST FOR MATCHING PHONEMES:")
