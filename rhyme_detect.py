@@ -41,13 +41,18 @@ BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
 
 ALLITERATION_RHYME1 = ["Look I was gonna go easy on you and not to hurt your feelings",
                       "But I'm only going to get this one chance"]
+
 ALLITERATION_RHYME2 = ["Big big booty what you got a big booty"]
+
+ASSONANCE_RHYME = ["Maybe bake cake Jay C rapper star"]
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
-SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap, happy?
+SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap <<< happy?
 
 transcr = cmudict.dict()
+
+vowels = ['AA', 'AE', 'AH', 'AO', 'AW', 'AY', 'EH', 'ER', 'EY', 'IH', 'IY', 'OW', 'OY', 'UH', 'UW']
 
 #########################
 # END: GLOBAL VARIABLES #
@@ -143,11 +148,57 @@ def detect_alliteration(a):
             # figure out how to check 1-2 more words in advnace
         if num_times > 0:
             ret.append((a_transcr[x][0], num_times))        # add this alliteration to the list
-            x = x + y + 1           # start searching for more alliterations after this one ends
+            x = x + y + 1           # start searching for more alliterations after this one ends to avoid double counting
         else:
             x += 1
     return ret
 
+# detect_assonance_in_line(a)
+# Description: detects assonance within ONE line
+# param      : *un-transcribed* string a
+# return     : a list of tuples, first element is phoneme, second is the number of times it appears
+#            : lenght of this list gives you total number of assonance in line
+
+def detect_assonance_in_line(a):
+    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    ret = []
+    x = 0                       # go through words
+    while x < len(a_transcr):
+        vowels = []
+        newX = x + 1
+        for z in a_transcr[x]:                 # find the vowels in the word
+            if is_vowel(z):
+                vowels.append(z)
+        for w in vowels:            # check each vowel to see if there is assonance within the line
+            num_times = 0
+            y = 1
+            stop = False
+            while not(stop) and y < (len(a_transcr) - x):
+                stop = True
+                if w in a_transcr[x + y]:
+                    num_times += 1
+                    stop = False            # keep searching forwards
+                    y += 1                  # look one word further
+                # figure out how to check 1-2 more words in advnace
+            if num_times > 0:
+                ret.append((w, num_times))        # add this assonance to the list
+                if x + y + 1 > newX:
+                    newX = x + y + 1           # start searching for more assonance after this one ends to avoid double counting
+        x = newX
+    return ret
+
+# is_vowel(phoneme)
+# Description: determines if a phoneme is a vowel sound
+# param      : phoneme string
+# return     : true if phoneme is a vowel sound, else false
+
+def is_vowel(phoneme):
+    if phoneme[-1].isdigit:
+        phoneme = phoneme[:-1]
+    if phoneme in vowels:
+        return True
+    else:
+        return False
 
 # syllable_count(word)
 # Description: counts the number of syllables in a transcribed word
@@ -185,6 +236,7 @@ def syllable_word(phonemes):
 
 # syllables_list(l)
 # Description: we want a 
+
 def syllables_list(l):
     ret = []
 
@@ -311,6 +363,11 @@ print(detect_alliteration(ALLITERATION_RHYME1[0]))
 line_break()
 print(ALLITERATION_RHYME2)
 print(detect_alliteration(ALLITERATION_RHYME2[0]))
+
+line_break()
+print("TEST FOR ASSONANCE RHYME WITHIN LINE:")
+print(ASSONANCE_RHYME)
+print(detect_assonance_in_line(ASSONANCE_RHYME[0]))
 
 line_break()
 print("TEST FOR MATCHING PHONEMES:")
