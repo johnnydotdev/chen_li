@@ -39,8 +39,9 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
                        "The method will know this and not be a dick"]
 
-ALLITERATION_RHYME = ["Look I was gonna go easy on you and not to hurt your feelings",
+ALLITERATION_RHYME1 = ["Look I was gonna go easy on you and not to hurt your feelings",
                       "But I'm only going to get this one chance"]
+ALLITERATION_RHYME2 = ["Big big booty what you got a big booty"]
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
@@ -119,13 +120,34 @@ def detect_perfect_rhyme_two_lines(a, b):
         return True
     return False       # else, return False
 
-# still works, coming back to it after HOC break
-def detect_alliteration(a, b):
-    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
-    b_transcr = transcribe_string(b) # Transcribe string b into its pronunciations
+# detect_alliteration(a)
+# Description: detects alliterations within ONE line
+# param      : *un-transcribed* string a
+# return     : a list of tuples, first element is phoneme, second is the number of times it appears
+#            : lenght of this list gives you total number of alliterations in line
 
-    print a_transcr
-    print b_transcr
+def detect_alliteration(a):
+    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    ret = []
+    x = 0                       # go through words
+    while x < len(a_transcr):
+        num_times = 0
+        y = 1
+        stop = False
+        while not(stop) and y < (len(a_transcr) - x):
+            stop = True
+            if a_transcr[x][0] == a_transcr[x + y][0]:
+                num_times += 1
+                stop = False            # keep searching forwards
+                y += 1                  # look one word further
+            # figure out how to check 1-2 more words in advnace
+        if num_times > 0:
+            ret.append((a_transcr[x][0], num_times))        # add this alliteration to the list
+            x = x + y + 1           # start searching for more alliterations after this one ends
+        else:
+            x += 1
+    return ret
+
 
 # syllable_count(word)
 # Description: counts the number of syllables in a transcribed word
@@ -276,11 +298,19 @@ print("TEST FOR PERFECT RHYME:")                                          # test
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
 
-
 line_break()
 print("TEST FOR PERFECT RHYME:")                                            # test that perfect rhyme doesnt give false positives
 print(BREAK_PERFECT_RHYME)                                                  # 'This is NOT a perfect rhyme and with some luck', 'The method will know this and not be a dick']
 print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: False (boo! :( )
+
+line_break()
+print("TEST FOR ALLITERATION RHYME:")
+print(ALLITERATION_RHYME1)
+print(detect_alliteration(ALLITERATION_RHYME1[0]))
+
+line_break()
+print(ALLITERATION_RHYME2)
+print(detect_alliteration(ALLITERATION_RHYME2[0]))
 
 line_break()
 print("TEST FOR MATCHING PHONEMES:")
@@ -327,13 +357,6 @@ print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
 ########################
 # END SYLLABLE TESTS #
 ########################
-
-line_break()
-horiz_line()
-print("TEST DETECT_ALLITERATION:")
-horiz_line()
-
-detect_alliteration()
 
 #####################
 # END TEST SECTION #
