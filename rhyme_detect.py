@@ -128,7 +128,7 @@ def detect_perfect_rhyme_two_lines(a, b):
 # detect_alliteration(a)
 # Description: detects alliterations within ONE line
 # param      : *un-transcribed* string a
-# return     : a list of tuples, first element is phoneme, second is the number of times it appears
+# return     : a list of tuples, first element is phoneme, second is the number of times it appears, third is index in line where assonance begins
 #            : lenght of this list gives you total number of alliterations in line
 
 def detect_alliteration(a):
@@ -147,7 +147,7 @@ def detect_alliteration(a):
                 y += 1                  # look one word further
             # figure out how to check 1-2 more words in advnace
         if num_times > 0:
-            ret.append((a_transcr[x][0], num_times))        # add this alliteration to the list
+            ret.append((a_transcr[x][0], num_times, x))        # add this alliteration to the list
             x = x + y + 1           # start searching for more alliterations after this one ends to avoid double counting
         else:
             x += 1
@@ -156,7 +156,7 @@ def detect_alliteration(a):
 # detect_assonance_in_line(a)
 # Description: detects assonance within ONE line
 # param      : *un-transcribed* string a
-# return     : a list of tuples, first element is phoneme, second is the number of times it appears
+# return     : a list of tuples, first element is phoneme, second is the number of times it appears, third is index in line where assonance begins
 #            : lenght of this list gives you total number of assonance in line
 
 def detect_assonance_in_line(a):
@@ -181,7 +181,7 @@ def detect_assonance_in_line(a):
                     y += 1                  # look one word further
                 # figure out how to check 1-2 more words in advnace
             if num_times > 0:
-                ret.append((w, num_times))        # add this assonance to the list
+                ret.append((w, num_times, x))        # add this assonance to the list
                 if x + y + 1 > newX:
                     newX = x + y + 1           # start searching for more assonance after this one ends to avoid double counting
         x = newX
