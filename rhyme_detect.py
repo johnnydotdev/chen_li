@@ -224,18 +224,18 @@ def syllable_count(phonemes):
 
 def syllable_word(phonemes):
     ret = []
-
+    count = 1
     for x in phonemes:          # iterate through phonemes for that word
         temp = []
-        for y in x:
-            temp.append(y)
+        for y in x: 
+            temp.append(y) 
             if y[-1].isdigit(): # if the phoneme ends in a digit, then we know it's the end of that syllable 
                 ret.append(temp)
                 temp = []
-    ret.append(temp)            # don't forget the ending syllable 
-
+        if (len(phonemes) == count) and not(len(temp) == 0):          # tack on last few phonemes if there are any left
+            ret[-1] = ret[-1] + temp
+        count += 1
     return ret
-
 # syllables_list(l)
 # Description: we want a 
 
