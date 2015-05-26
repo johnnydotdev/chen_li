@@ -9,6 +9,10 @@
 # TODO: lots of other shit basically
 # TODO: separate methods from testing
 # TODO: change methods to use already transcribed strings (you know, speed probably)
+# TODO: multi syllabic rhymes
+# TODO: scrape AZ Lyrics and scrub *DONT TOUCH DIS IS MINE*
+# TODO: denstiy plot of rhymes <-- take a look at my allit and asso methods for a start
+# TODO: pick out a nonwestern for us to take spring semester
 ########################## big one
 # TODO: measure *based on syllables*
 #############################################
