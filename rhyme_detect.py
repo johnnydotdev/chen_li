@@ -26,7 +26,7 @@ from nltk.corpus import cmudict
 # Import text files by using command line arguments
 
 # Lose Yourself - Eminem
-LOSE_YOURSLEF = ["His palms are sweaty, knees weak, arms are heavy",
+LOSE_YOURSELF = ["His palms are sweaty, knees weak, arms are heavy",
                  "There's vomit on his sweater already, mom's spaghetti",
                  "He's nervous, but on the surface he looks calm and ready to drop bombs",
                  "But he keeps on forgetting what he wrote down",
@@ -39,6 +39,9 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 SAMPLE_TEXT = "Mackerel bat from hell"
 
 SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap, happy?
+
+RAP_GOD = ["I'm beginning to feel like a Rap God, Rap God",
+           "All my people from the front to the back nod, back nod"]
 
 transcr = cmudict.dict()
 
@@ -284,6 +287,13 @@ print("AMAZING")
 print(syllable_count(transcribe_string("amazing")))
 print(syllable_word(transcribe_string("amazing")))
 print(transcribe_string("amazing"))
+
+line_break()
+print("TEST RAP GOD SYLLABLES:")
+rap_god_0 = syllables_list(transcribe_list(RAP_GOD[0]))
+rap_god_1 = syllables_list(transcribe_list(RAP_GOD[1]))
+print(rap_god_0 + str(len(rap_god_0)))
+print(rap_god_1 + str(len(rap_god_1)))
 
 ########################
 # END SYLLABLE TESTS #
