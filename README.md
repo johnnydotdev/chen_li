@@ -6,5 +6,5 @@
 
 ##Examples
 ####Perfect Rhyme
-*I once met a bully name kelly
-she was always kind of smelly*
+*I once met a bully name Kelly,*
+*She was always kind of smelly*
