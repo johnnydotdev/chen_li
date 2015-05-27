@@ -411,6 +411,8 @@ print "clocks"
 print syllable_word((transcribe_string("clocks")))
 print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
 
+line_break()
+line_break()
 print("TEST SYLLABLE_STRING METHOD:")
 print("hello this bottle is wonderful")
 print(syllable_string("hello this bottle is wonderful"))
