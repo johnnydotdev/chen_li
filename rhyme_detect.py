@@ -128,27 +128,22 @@ def detect_perfect_rhyme_two_lines(a, b):
     a_syl = syllable_string(a) # Transcribe string a into its syllables
     b_syl = syllable_string(b) # Transcribe string b into its syllables 
 
-    print("A SYLLS" + str(a_syl))
-    print("B SYLLS" + str(b_syl))
-
     a_last = a_syl[-1]
     b_last = b_syl[-1]
 
-    print(a_last)
-    print(b_last)
-
     vowel_target = "fuck"
-    print('shit')
 
-    for p in a_last:
-        if is_vowel(p):
-            vowel_target = p
-            break
+    for x in a_last:
+        for p in x:
+            if is_vowel(p):
+                vowel_target = p
+                break
     
-    for p in b_last:
-        if is_vowel(p):
-            if vowel_target == p:
-                return True
+    for x in b_last:
+        for p in x:
+            if is_vowel(p):
+                if vowel_target == p:
+                    return True
     
     return False
 
