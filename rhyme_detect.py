@@ -182,16 +182,16 @@ def detect_alliteration(a):
 #            : lenght of this list gives you total number of assonance in line
 
 def detect_assonance_in_line(a):
-    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    a_transcr = transcribe_string(a)                 # Transcribe string a into its pronunciations
     ret = []
-    x = 0                       # go through words
+    x = 0                                            # go through words
     while x < len(a_transcr):
         vowels = []
         newX = x + 1
-        for z in a_transcr[x]:                 # find the vowels in the word
+        for z in a_transcr[x]:                       # find the vowels in the word
             if is_vowel(z):
                 vowels.append(z)
-        for w in vowels:            # check each vowel to see if there is assonance within the line
+        for w in vowels:                             # check each vowel to see if there is assonance within the line
             num_times = 0
             y = 1
             stop = False
@@ -199,13 +199,13 @@ def detect_assonance_in_line(a):
                 stop = True
                 if w in a_transcr[x + y]:
                     num_times += 1
-                    stop = False            # keep searching forwards
-                    y += 1                  # look one word further
-                # figure out how to check 1-2 more words in advnace
+                    stop = False                     # keep searching forwards
+                    y += 1                           # look one word further
+                                                     # figure out how to check 1-2 more words in advnace
             if num_times > 0:
                 ret.append((w, num_times, x))        # add this assonance to the list
                 if x + y + 1 > newX:
-                    newX = x + y + 1           # start searching for more assonance after this one ends to avoid double counting
+                    newX = x + y + 1                 # start searching for more assonance after this one ends to avoid double counting
         x = newX
     return ret
 
