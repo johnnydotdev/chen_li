@@ -147,11 +147,6 @@ def detect_perfect_rhyme_two_lines(a, b):
     
     return False
 
-    
-#    if a[-1] == b[-1]: # if the items at the last indices match, return True
-#        return True
-#    return False       # else, return False
-
 # detect_alliteration(a)
 # Description: detects alliterations within ONE line
 # param      : *un-transcribed* string a
