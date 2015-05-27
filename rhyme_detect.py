@@ -154,9 +154,9 @@ def detect_perfect_rhyme_two_lines(a, b):
 #            : lenght of this list gives you total number of alliterations in line
 
 def detect_alliteration(a):
-    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
+    a_transcr = transcribe_string(a)                           # Transcribe string a into its pronunciations
     ret = []
-    x = 0                       # go through words
+    x = 0                                                      # go through words
     while x < len(a_transcr):
         num_times = 0
         y = 1
@@ -165,12 +165,12 @@ def detect_alliteration(a):
             stop = True
             if a_transcr[x][0] == a_transcr[x + y][0]:
                 num_times += 1
-                stop = False            # keep searching forwards
-                y += 1                  # look one word further
-            # figure out how to check 1-2 more words in advnace
+                stop = False                                   # keep searching forwards
+                y += 1                                         # look one word further
+                                                               # figure out how to check 1-2 more words in advnace
         if num_times > 0:
             ret.append((a_transcr[x][0], num_times, x))        # add this alliteration to the list
-            x = x + y + 1           # start searching for more alliterations after this one ends to avoid double counting
+            x = x + y + 1                                      # start searching for more alliterations after this one ends to avoid double counting
         else:
             x += 1
     return ret
