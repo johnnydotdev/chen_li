@@ -276,35 +276,8 @@ def syllable_string(s):
 # param      : list of phonemes a, list of phonemes b
 # return     : list of booleans
 
-# i'm too tired for comments right now check the google doc i left an explanation therrre
 def find_matching_phonemes(a, b):
     return
-
-#    comb = [a, b]
-#    tot = [[],[]]
-#    ret = []
-#
-#    min_length = 999999
-#    counter = 0
-#
-#    for i in range(len(comb)):
-#        for s in comb[i]:
-#            for x in s:
-#                counter += 1
-#                tot[i].append(x)
-#        
-#        if (counter < min_length):
-#            min_length = counter
-#        counter = 0
-#
-#    for i in range(min_length - 1):
-#        if tot[0][i] == tot[1][i]:
-#            ret.append(True)
-#        else:
-#            ret.append(False)
-#
-#    return ret
-
 
 #######################
 # BEGIN: TEST SECTION #
