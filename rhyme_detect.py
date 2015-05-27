@@ -125,12 +125,37 @@ def transcribe_list(l):
 # return     : True if perfect rhyme detected, False if not
 
 def detect_perfect_rhyme_two_lines(a, b):
-    a_transcr = transcribe_string(a) # Transcribe string a into its pronunciations
-    b_transcr = transcribe_string(b) # Transcribe string b into its pronunciations
+    a_syl = syllable_string(a) # Transcribe string a into its syllables
+    b_syl = syllable_string(b) # Transcribe string b into its syllables 
 
-    if a[-1] == b[-1]: # if the items at the last indices match, return True
-        return True
-    return False       # else, return False
+    print("A SYLLS" + str(a_syl))
+    print("B SYLLS" + str(b_syl))
+
+    a_last = a_syl[-1]
+    b_last = b_syl[-1]
+
+    print(a_last)
+    print(b_last)
+
+    vowel_target = "fuck"
+    print('shit')
+
+    for p in a_last:
+        if is_vowel(p):
+            vowel_target = p
+            break
+    
+    for p in b_last:
+        if is_vowel(p):
+            if vowel_target == p:
+                return True
+    
+    return False
+
+    
+#    if a[-1] == b[-1]: # if the items at the last indices match, return True
+#        return True
+#    return False       # else, return False
 
 # detect_alliteration(a)
 # Description: detects alliterations within ONE line
@@ -229,25 +254,29 @@ def syllable_count(phonemes):
 def syllable_word(phonemes):
     ret = []
     count = 1
-    for x in phonemes:          # iterate through phonemes for that word
+    for x in phonemes:                                                # iterate through phonemes for that word
         temp = []
         for y in x: 
             temp.append(y) 
-            if y[-1].isdigit(): # if the phoneme ends in a digit, then we know it's the end of that syllable 
+            if y[-1].isdigit():                                       # if the phoneme ends in a digit, then we know it's the end of that syllable 
                 ret.append(temp)
                 temp = []
         if (len(phonemes) == count) and not(len(temp) == 0):          # tack on last few phonemes if there are any left
-            ret[-1] = ret[-1] + temp
+            ret[-1] += temp
         count += 1
     return ret
-# syllables_list(l)
-# Description: we want a 
 
-def syllables_list(l):
+# syllable_string(l)
+# Description: we want a list of syllables for the string you enter
+# param      : string, not already transcribed
+# return     : list of list of syllables by word
+
+def syllable_string(s):
     ret = []
+    l = s.split(' ')
 
     for w in l:                     # for every word in the list
-       ret.append(syllable_word(w)) # syllable-ize that word
+       ret.append(syllable_word(transcribe_string(w))) # syllable-ize that word
 
     return ret
 
@@ -259,13 +288,6 @@ def syllables_list(l):
 
 # i'm too tired for comments right now check the google doc i left an explanation therrre
 def find_matching_phonemes(a, b):
-    syllables_a = syllables_list(a)
-    syllables_b = syllables_list(b)
-    
-    print("DO THEY HAVE THE SAME NUM OF SYLLALBES?")
-    print(len(syllables_a))
-    print(len(syllables_b))
-
     return
 
 #    comb = [a, b]
@@ -354,6 +376,7 @@ horiz_line()
 line_break()
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
 print(PERFECT_RHYME)                                                      # ['This is a perfect rhyme', 'bitches split on a dime']
+print(transcribe_list(PERFECT_RHYME))
 print(detect_perfect_rhyme_two_lines(PERFECT_RHYME[0], PERFECT_RHYME[1])) # Expected: True (yay!)
 
 line_break()
@@ -401,21 +424,34 @@ print(transcribe_string("amazing"))
 
 line_break()
 print("TEST SYLLABLE_WORD METHOD:")
-print "wonderful"
-print syllable_word((transcribe_string("wonderful")))
-print len(syllable_word((transcribe_string("wonderful"))))  # Expected: 3 yay!
-line_break()
 print "hello"
 print syllable_word((transcribe_string("hello")))
 print len(syllable_word((transcribe_string("hello"))))  # Expected: 2 yay!
+line_break()
+print "this"
+print syllable_word((transcribe_string("this")))
+print len(syllable_word((transcribe_string("this"))))  # Expected: 3 yay!
 line_break()
 print "bottle"
 print syllable_word((transcribe_string("bottle")))
 print len(syllable_word((transcribe_string("bottle"))))  # Expected: 2 yay!
 line_break()
+print "is"
+print syllable_word((transcribe_string("is")))
+print len(syllable_word((transcribe_string("is"))))  # Expected: 3 yay!
+line_break()
+print "wonderful"
+print syllable_word((transcribe_string("wonderful")))
+print len(syllable_word((transcribe_string("wonderful"))))  # Expected: 3 yay!
+line_break()
 print "clocks"
 print syllable_word((transcribe_string("clocks")))
 print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
+
+print("TEST SYLLABLE_STRING METHOD:")
+print("hello this bottle is wonderful")
+print(syllable_string("hello this bottle is wonderful"))
+
 
 ########################
 # END SYLLABLE TESTS #
