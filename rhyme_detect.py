@@ -482,7 +482,7 @@ print(syllable_string("hello this bottle is wonderful"))
 
 line_break()
 horiz_line()
-print("Mack-lemore & Ryan Lewis Test Frequency Methods")
+print("Mack-lemore & Jay-C Collab on Frequency Methods, Ass & All")
 horiz_line()
 
 line_break()
