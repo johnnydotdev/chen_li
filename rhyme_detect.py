@@ -20,6 +20,7 @@
 
 import sys
 import nltk
+import pprint
 from nltk.corpus import cmudict
 from collections import defaultdict, OrderedDict
 
@@ -272,6 +273,22 @@ def syllable_string(s):
 
     return ret
 
+# syllable_total(l)
+# param: *not already trancribed* list of strings
+# return: big list of syllables per line (NOT BY WORD, as in: unseparated)
+
+def syllable_total(l):
+    ret = []
+    for s in l:
+        syl_str = syllable_string(s)
+        temp = []
+        for line in syl_str:
+            for word in line:
+                temp += word
+        ret.append(temp)
+
+    return ret
+
 # find_matching_phonemes(a, b)
 # Description: finds matching phonemes between a, b, and returns a list of booleans corresponding with indices and whether they match
 #            : this is going to be really hacky
@@ -335,9 +352,9 @@ def allit_freq(l):
 # BEGIN: TEST SECTION #
 #######################
 
-#########################
+#####################
 # BEGIN SCRUB TESTS #
-#########################
+#####################
 
 horiz_line()
 print("BEGIN TESTS")
@@ -375,9 +392,9 @@ print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching outp
 for s in PERFECT_RHYME:
     print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
-########################
+###################
 # END SCRUB TESTS #
-########################
+###################
 
 #########################
 # BEGIN DETECTION TESTS #
@@ -464,13 +481,20 @@ print syllable_word((transcribe_string("clocks")))
 print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
 
 line_break()
-line_break()
 print("TEST SYLLABLE_STRING METHOD:")
 print("hello this bottle is wonderful")
 print(syllable_string("hello this bottle is wonderful"))
 
+line_break()
+print("TEST SYLLABLE TOTAL METHOD:")
+pprint.pprint(LOSE_YOURSELF)
+lose_yourself_total_syllables = syllable_total(LOSE_YOURSELF)
+print(lose_yourself_total_syllables)
 
-
+line_break()
+print("FIND SYLLABLE COUNTS OF LOSE YOURSELF")
+for x in lose_yourself_total_syllables:
+    print(len(x))
 
 ########################
 # END SYLLABLE TESTS #
