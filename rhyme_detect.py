@@ -508,6 +508,11 @@ for x in vowel_od_2:
 
 line_break()
 print("TESTING ALLITERATION_FREQ")
+print(ALLITERATION_RHYME1[0])
+print(transcribe_string(ALLITERATION_RHYME1[0]))
+allit_od_1 = allit_freq(transcribe_string(ALLITERATION_RHYME1[0]))
+for k, v in allit_od_1.items():
+    print k, v
 
 ##################
 # END FREQ TESTS #
