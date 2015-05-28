@@ -630,6 +630,18 @@ print(LOSE_YOURSELF[3])
 print(LOSE_YOURSELF[4])
 pprint.pprint(multi_sequence(LOSE_YOURSELF[3],LOSE_YOURSELF[4]))
 
+if (len(sys.argv) > 1):
+    multi_file_swag = []
+    line_break()
+    file_swag = read_and_scrub_text_file(1)
+    for i in range(0, len(file_swag) - 1):
+        temp = multi_sequence(file_swag[i], file_swag[i + 1])
+        if len(temp) != 0:
+            multi_file_swag.append(temp)
+    pprint(multi_file_swag)
+        
+        
+    
 ###################
 # END MULTI TESTS #
 ###################
