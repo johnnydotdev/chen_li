@@ -13,6 +13,7 @@
 # TODO: scrape AZ Lyrics and scrub *DONT TOUCH DIS IS MINE*
 # TODO: denstiy plot of rhymes <-- take a look at my allit and asso methods for a start
 # TODO: pick out a nonwestern for us to take spring semester
+# TODO: nice todo, also scrub rhymes for punctuation because CMU dict is fucking stupid
 ########################## big one
 # TODO: measure *based on syllables*
 #############################################
@@ -31,12 +32,12 @@ from collections import defaultdict, OrderedDict
 # Import text files by using command line arguments
 
 # Lose Yourself - Eminem
-LOSE_YOURSELF = ["His palms are sweaty, knees weak, arms are heavy",
-                 "There's vomit on his sweater already, mom's spaghetti",
-                 "He's nervous, but on the surface he looks calm and ready to drop bombs",
+LOSE_YOURSELF = ["His palms are sweaty knees weak arms are heavy",
+                 "Theres vomit on his sweater already moms spaghetti",
+                 "Hes nervous, but on the surface he looks calm and ready to drop bombs",
                  "But he keeps on forgetting what he wrote down",
                  "The whole crowd goes so loud",
-                 "He opens his mouth, but the words won't come out"]
+                 "He opens his mouth but the words wont come out"]
 
 PERFECT_RHYME = ["This is a perfect rhyme", 
                  "bitches split on a dime"]
@@ -489,11 +490,23 @@ print("TESTING VOWEL_FREQ")
 print(SAMPLE_TEXT)
 print(transcribe_string(SAMPLE_TEXT))
 vowel_od_1 = vowel_freq(transcribe_string(SAMPLE_TEXT))
-
 for k, v in vowel_od_1.items():
     print k, v
 
+line_break()
+print("TESTING VOWEL FREQ MORE SERIOUSLY")
+print(LOSE_YOURSELF)
+print(transcribe_list(LOSE_YOURSELF))
+vowel_od_2 = []
+for l in LOSE_YOURSELF:
+    vowel_od_2.append(vowel_freq(transcribe_string(l)))
 
+for x in vowel_od_2:
+    for k, v in x.items():
+        print k, v
+
+line_break()
+print("TESTING ALLITERATION_FREQ")
 
 ##################
 # END FREQ TESTS #
