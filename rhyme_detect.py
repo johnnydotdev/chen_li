@@ -282,6 +282,22 @@ def syllable_string(s):
 
     return ret
 
+# syllable_string_no_word_boundaries(s)
+# Description: we want a list of syllables for the string you enter, without word divisions
+# param      : string, not already transcribed
+# return     : list of syllables
+
+def syllable_string_no_word_boundaries(s):
+    ret = []
+    l = s.split(' ') # split s into constituent words
+
+    for w in l: # for every word in the list
+        werd = syllable_word(transcribe_string(w))
+        for syl in werd:
+            ret += syl
+
+    return ret
+
 # syllable_total(l)
 # param: *not already trancribed* list of strings
 # return: big list of syllables per line (NOT BY WORD, as in: unseparated)
@@ -326,8 +342,8 @@ def phoneme_freq(l):
 
 # vowel_freq(l), originally named ass_freq(l)
 # Description: shows the most frequent vowels in that line
-# param: transcribed list of phonemes (only one string)
-# return: OrderedDict of vowel phonemes to their frequency of appearance
+# param      : transcribed list of phonemes (only one string)
+# return     : OrderedDict of vowel phonemes to their frequency of appearance
 
 def vowel_freq(l):
     d = defaultdict(int) # create defaultdict
@@ -343,8 +359,8 @@ def vowel_freq(l):
 
 # allit_freq(l)
 # Description: Which alliterations are most frequent?
-# param: transcribed list of phonemes (only one string)
-# return: OrderedDict of alliteration phonemes to their frequency of appearance in *descending order*
+# param      : transcribed list of phonemes (only one string)
+# return     : OrderedDict of alliteration phonemes to their frequency of appearance in *descending order*
 
 def allit_freq(l):
     d = defaultdict(int) # create defaultdict
@@ -355,6 +371,42 @@ def allit_freq(l):
     od = OrderedDict(sorted(d.items(), key = lambda t: t[1], reverse = True)) # add these in descending order to the OrderedDict
 
     return od
+
+# extract_vowels(l)
+# Description: extracts vowels from a list of phonemes
+# param      : list of phonemes to extract vowels from 
+# return     :  sequence of vowels from the passed in list of phonemes
+
+def extract_vowels(l):
+    ret = []
+
+    for x in l        : # for every phoneme in the list
+        if is_vowel(x): # if it belongs to the list of vowels
+            ret.append(x) # add that to the return list
+    
+    return ret
+
+# multi_sequence(a, b)
+# Description: What is the longest ending multisyllabic rhyme between 2 lines?
+# param      : untranscribed string a, b
+# return     : longest matching sequence between the two
+
+def multi_sequence(a, b):
+    syll_a = syllable_string_no_word_boundaries(a) # i realized how stupid this was after i wrote it... don't comment
+    syll_b = syllable_string_no_word_boundaries(b)
+
+    vowels_a = extract_vowels(syll_a)
+    vowels_b = extract_vowels(syll_b)
+
+    sequence = []
+
+    for i in range(-1, -1 * min(len(a), len(b)), -1): # loop from the end of each array in steps of -1
+        if vowels_a[i] == vowels_b[i]:
+            sequence.insert(0, vowels_a[i])
+        else:
+            break
+
+    return sequence
 
 #######################
 # BEGIN: TEST SECTION #
@@ -515,6 +567,10 @@ print("FIND SYLLABLE COUNT OF HOL UP")
 for x in hol_up_total_syllables:
     print(len(x))
 
+print("TEST SYLLABLE NO BOUNDARIES:")
+pprint.pprint(SAMPLE_TEXT)
+print(syllable_string_no_word_boundaries(SAMPLE_TEXT))
+
 ########################
 # END SYLLABLE TESTS #
 ########################
@@ -560,6 +616,23 @@ for k, v in allit_od_1.items():
 ##################
 # END FREQ TESTS #
 ##################
+
+#####################
+# BEGIN MULTI TESTS #
+#####################
+
+horiz_line()
+print("TESTING MULTISYLLABIC RHYMES BRACE YOUR ASSONANCE")
+horiz_line()
+
+line_break()
+print(LOSE_YOURSELF[3])
+print(LOSE_YOURSELF[4])
+pprint.pprint(multi_sequence(LOSE_YOURSELF[3],LOSE_YOURSELF[4]))
+
+###################
+# END MULTI TESTS #
+###################
 
 #####################
 # END TEST SECTION #
