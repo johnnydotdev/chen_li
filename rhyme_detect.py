@@ -33,8 +33,8 @@ from collections import defaultdict, OrderedDict
 
 # Lose Yourself - Eminem
 LOSE_YOURSELF = ["His palms are sweaty knees weak arms are heavy",
-                 "Theres vomit on his sweater already moms spaghetti",
-                 "Hes nervous, but on the surface he looks calm and ready to drop bombs",
+                 "There vomit on his sweater already moms spaghetti",
+                 "He nervous but on the surface he looks calm and ready to drop bombs",
                  "But he keeps on forgetting what he wrote down",
                  "The whole crowd goes so loud",
                  "He opens his mouth but the words wont come out"]
@@ -502,6 +502,7 @@ for l in LOSE_YOURSELF:
     vowel_od_2.append(vowel_freq(transcribe_string(l)))
 
 for x in vowel_od_2:
+    print("\n")
     for k, v in x.items():
         print k, v
 
