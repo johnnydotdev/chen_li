@@ -20,6 +20,7 @@
 import sys
 import nltk
 from nltk.corpus import cmudict
+from collections import defaultdict, OrderedDict
 
 ###########################
 # BEGIN: GLOBAL VARIABLES #
@@ -277,7 +278,53 @@ def syllable_string(s):
 # return     : list of booleans
 
 def find_matching_phonemes(a, b):
+    # maybe i will fix this method later
     return
+
+# phoneme_freq(l)
+# Description: creates a frequency dict of phonemes in a line and sorts by frequency of appearance
+# param      : transcribed line to scanalyze (I am a born rapper)
+# return     : sorted frequency dict by number of phonemes (type OrderedDict)
+# note       : in hindsight this might be totally unnecessary
+
+def phoneme_freq(l):
+    d = defaultdict(int) # default dict with value int
+
+    for w in l:                                               # for every word in the list
+        for p in w:                                           # and every phoneme in the word
+            d[p] += 1                                         # add it/increment it in the dict
+
+    od = OrderedDict(sorted(d.items(), key = lambda t: t[1])) # then add it to an OrderedDict sorted by value
+    
+    return od
+
+# vowel_freq(l), originally named ass_freq(l)
+# Description: shows the most frequent vowels in that line
+# param: transcribed list of phonemes (only one string)
+# return: OrderedDict of vowel phonemes to their frequency of appearance
+
+def vowel_freq(l):
+    d = defaultdict(int) # create defaultdict
+
+    for w in l:             # for every word in the list of lists of phonemes
+        for p in w:         # for every list of phonemes
+            if is_vowel(p): # if that is a vowel
+                d[p] += 1   # increment its count in the dictionary
+
+    od = OrderedDict(sorted(d.items(), key = lambda t: t[1], reverse = True)) # add these in descending order to the OrderedDict
+
+    return od
+
+
+def allit_freq(l):
+    d = defaultdict(int) # create defaultdict
+
+    for w in l: # for every list in the list of phonemes
+        d[w[0]] += 1 # add its first sound to the default dictionary
+
+    od = OrderedDict(sorted(d.items(), key = lambda t: t[1], reverse = True)) # add these in descending order to the OrderedDict
+
+    return od
 
 #######################
 # BEGIN: TEST SECTION #
@@ -418,9 +465,35 @@ print("hello this bottle is wonderful")
 print(syllable_string("hello this bottle is wonderful"))
 
 
+
+
 ########################
 # END SYLLABLE TESTS #
 ########################
+
+####################
+# BEGIN FREQ TESTS #
+####################
+
+line_break()
+horiz_line()
+print("Mack-lemore & Ryan Lewis Test Frequency Methods")
+horiz_line()
+
+line_break()
+print("TESTING VOWEL_FREQ")
+print(SAMPLE_TEXT)
+print(transcribe_string(SAMPLE_TEXT))
+vowel_od_1 = vowel_freq(transcribe_string(SAMPLE_TEXT))
+
+for k, v in vowel_od_1.items():
+    print k, v
+
+
+
+##################
+# END FREQ TESTS #
+##################
 
 #####################
 # END TEST SECTION #
