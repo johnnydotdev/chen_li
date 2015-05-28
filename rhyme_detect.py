@@ -60,6 +60,15 @@ SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # t
 RAP_GOD = ["I'm beginning to feel like a Rap God, Rap God",
            "All my people from the front to the back nod, back nod"]
 
+HOL_UP = ["I wrote this record while thirty thousand feet in the air",
+          "Stewardess complimenting me on my happy hair",
+          "If I can fuck her in front of all of these passengers",
+          "They'll probably think I'm a terrorist eat my asparagus",
+          "Then I'm asking her thoughts of a young bigger fast money and freedom",
+          "A crash dummy for dollars I know you dying to meet them",
+          "I'll holly die in a minute just bury me",
+          "With twenty bitches twenty million and a Cop town fitted"]
+
 transcr = cmudict.dict()
 
 vowels = ['AA', 'AE', 'AH', 'AO', 'AW', 'AY', 'EH', 'ER', 'EY', 'IH', 'IY', 'OW', 'OY', 'UH', 'UW']
@@ -283,8 +292,7 @@ def syllable_total(l):
         syl_str = syllable_string(s)
         temp = []
         for line in syl_str:
-            for word in line:
-                temp += word
+            temp += line 
         ret.append(temp)
 
     return ret
@@ -494,6 +502,17 @@ print(lose_yourself_total_syllables)
 line_break()
 print("FIND SYLLABLE COUNTS OF LOSE YOURSELF")
 for x in lose_yourself_total_syllables:
+    print(len(x))
+
+line_break()
+print("TEST SYLLABLE TOTAL METHOD, HOL UP:")
+pprint.pprint(HOL_UP)
+hol_up_total_syllables = syllable_total(HOL_UP)
+print(hol_up_total_syllables)
+
+line_break()
+print("FIND SYLLABLE COUNT OF HOL UP")
+for x in hol_up_total_syllables:
     print(len(x))
 
 ########################
