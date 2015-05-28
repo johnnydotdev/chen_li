@@ -315,6 +315,10 @@ def vowel_freq(l):
 
     return od
 
+# allit_freq(l)
+# Description: Which alliterations are most frequent?
+# param: transcribed list of phonemes (only one string)
+# return: OrderedDict of alliteration phonemes to their frequency of appearance in *descending order*
 
 def allit_freq(l):
     d = defaultdict(int) # create defaultdict
