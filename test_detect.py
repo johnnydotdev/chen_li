@@ -1,32 +1,7 @@
 #!/usr/bin/python
 
-#############################################
-# TODO: add error detection and error messages
-# TODO: add better perfect rhyme detection <-- DONE???
-# TODO: add scoring
-# TODO: add support for more than 1 text file
-# TODO: add detection of more rhymes <-- DONE
-# TODO: lots of other shit basically <-- Well... yeah
-# TODO: separate methods from testing <-- what's dat mean <- I'll take care of this
-# TODO: change methods to use already transcribed strings (you know, speed probably)
-# TODO: multi syllabic rhymes <-- DONE
-# TODO: scrape AZ Lyrics and scrub <-- basics are done
-# TODO: denstiy plot of rhymes
-# TODO: pick out a nonwestern for us to take spring semester
-# TODO: nice todo, also scrub rhymes for punctuation because CMU dict is fucking stupid <-- DONE
-# TODO: measure *based on syllables* <-- whats dat mean <- nvm
-#############################################
-
-#############################################
-# NEW TODOS
-# TODO: handle words not in cmudict <- this is hard
-# TODO: make big wrap method that does all rhyme detection
-# TODO: error handling with web scraping (ie no results or first result is not right one)
-# TODO: put scraping and processing together
-# TODO: find_matching_phonemes needs some love or to be deleted
-#############################################
-
 from detection.rhyme_detect import *
+from detection.scrub import *
 
 ###########################
 # BEGIN: GLOBAL VARIABLES #
@@ -62,7 +37,7 @@ ASSONANCE_RHYME = ["Maybe bake cake Jay C rapper star"]
 
 SAMPLE_TEXT = "Mackerel bat from hell"
 
-SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap <<< happy?
+SAMPLE_TEXT2 = "Wow Jay C is asking for it, gonna punch him in a little bit" # that doesn't rhyme, fish can't rap <<< happy? <- :(
 
 RAP_GOD = ["I'm beginning to feel like a Rap God, Rap God",
            "All my people from the front to the back nod, back nod"]
@@ -78,17 +53,9 @@ HOL_UP = ["I wrote this record while thirty thousand feet in the air",
 
 GET_RID_OF_DAT_PUNCT = "This'll, have: a; (ton) of _pointless -punctuation"
 
-transcr = cmudict.dict()
-
-vowels = ['AA', 'AE', 'AH', 'AO', 'AW', 'AY', 'EH', 'ER', 'EY', 'IH', 'IY', 'OW', 'OY', 'UH', 'UW']
-
 #########################
 # END: GLOBAL VARIABLES #
 #########################
-
-#######################
-# BEGIN: TEST SECTION #
-#######################
 
 #####################
 # BEGIN SCRUB TESTS #
@@ -134,6 +101,10 @@ line_break()
 print("TEST FOR PUNCTUATION SCRUBBING:")
 print GET_RID_OF_DAT_PUNCT
 print scrub_punct(GET_RID_OF_DAT_PUNCT)
+
+line_break()
+print("TEST FOR SCRUB.PY")
+scrub_lyrics("rap_god.txt")
 
 ###################
 # END SCRUB TESTS #
@@ -328,12 +299,6 @@ if (len(sys.argv) > 1):
             multi_file_swag.append(temp)
     pprint(multi_file_swag)
         
-        
-    
 ###################
 # END MULTI TESTS #
 ###################
-
-#####################
-# END TEST SECTION #
-#####################

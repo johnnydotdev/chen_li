@@ -31,5 +31,3 @@ def scrub_lyrics(text):
 				temp_line.append("".join(temp_word))
 		ret.append(" ".join(temp_line))				# add to list of scrubbed lines
 	print ret
-
-scrub_lyrics("rap_god.txt")
