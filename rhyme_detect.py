@@ -46,6 +46,9 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
                        "The method will know this and not be a dick"]
 
+BREAK_PERFECT_RHYME_YET_AGAIN = ["Nice try Johnny boy your effort was good",
+                                "but I have a leg up or at least a foot"]
+
 ALLITERATION_RHYME1 = ["Look I was gonna go easy on you and not to hurt your feelings",
                       "But I'm only going to get this one chance"]
 
@@ -140,23 +143,24 @@ def detect_perfect_rhyme_two_lines(a, b):
     a_syl = syllable_string(a) # Transcribe string a into its syllables
     b_syl = syllable_string(b) # Transcribe string b into its syllables 
 
-    a_last = a_syl[-1]
-    b_last = b_syl[-1]
+    print a_syl
+    print b_syl
 
-    vowel_target = "fuck"
+    a_last = a_syl[-1][0]                                               # get last word of each line
+    b_last = b_syl[-1][0]
 
-    for x in a_last:
-        for p in x:
-            if is_vowel(p):
-                vowel_target = p
-                break
-    
-    for x in b_last:
-        for p in x:
-            if is_vowel(p):
-                if vowel_target == p:
-                    return True
-    
+    print a_last
+    print b_last
+
+    a_index = len(a_last)-1                                             # index of last phoneme
+    b_index = len(b_last)-1
+    while min(a_index, b_index) >= 0:                                   # while the smaller index is greater than 0
+        if a_last[a_index] != b_last[b_index]:                          # if phonemes don't match, not a perfect rhyme
+            break
+        if is_vowel(a_last[a_index]) and a_index < len(a_last):         # if we hit a vowel and this vowel is not the last phoneme in the word    
+            return True                                                 # ^ this prevents words like gamma and camera from being considered perfect rhyme
+        a_index-=1
+        b_index-=1
     return False
 
 # detect_alliteration(a)
@@ -408,62 +412,62 @@ def multi_sequence(a, b):
 
     return sequence
 
-#######################
-# BEGIN: TEST SECTION #
-#######################
+# #######################
+# # BEGIN: TEST SECTION #
+# #######################
 
-#####################
-# BEGIN SCRUB TESTS #
-#####################
+# #####################
+# # BEGIN SCRUB TESTS #
+# #####################
 
-horiz_line()
-print("BEGIN TESTS")
-horiz_line()
+# horiz_line()
+# print("BEGIN TESTS")
+# horiz_line()
 
-if (len(sys.argv) > 1):
-    line_break()
-    print("ARGUMENTS DETECTED")
-    print("TEST COMMAND LINE:")
-    print("Argument List " + str(sys.argv))
-    print("Number of arguments: " + str(len(sys.argv)))
-    print("SCRUBBED LINES:")
-    print(read_and_scrub_text_file(1))
+# if (len(sys.argv) > 1):
+#     line_break()
+#     print("ARGUMENTS DETECTED")
+#     print("TEST COMMAND LINE:")
+#     print("Argument List " + str(sys.argv))
+#     print("Number of arguments: " + str(len(sys.argv)))
+#     print("SCRUBBED LINES:")
+#     print(read_and_scrub_text_file(1))
 
-line_break()
-print("TESTING: transcribe_string(SAMPLE_TEXT)")
-sample_transcr = transcribe_string(SAMPLE_TEXT) # test that transcribe_string function works
-print(sample_transcr)                           # Prints out phonemes for "Mackerel bat from hell"
+# line_break()
+# print("TESTING: transcribe_string(SAMPLE_TEXT)")
+# sample_transcr = transcribe_string(SAMPLE_TEXT) # test that transcribe_string function works
+# print(sample_transcr)                           # Prints out phonemes for "Mackerel bat from hell"
 
-line_break()
-print("TESTING: transcribe_list(PERFECT_RHYME)")
-perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
-print(perfect_transcr)                           # output should match what we have below
-print("WHAT ARE THE LENGTHS OF EACH TRANSCRIPTION")
-arr = [0,0]
-for i in range(len(perfect_transcr)):
-    for t in perfect_transcr[i]:
-        for s in t:
-            arr[i] += 1
-print(arr)
+# line_break()
+# print("TESTING: transcribe_list(PERFECT_RHYME)")
+# perfect_transcr = transcribe_list(PERFECT_RHYME) # test that transcribe_list function works correctly
+# print(perfect_transcr)                           # output should match what we have below
+# print("WHAT ARE THE LENGTHS OF EACH TRANSCRIPTION")
+# arr = [0,0]
+# for i in range(len(perfect_transcr)):
+#     for t in perfect_transcr[i]:
+#         for s in t:
+#             arr[i] += 1
+# print(arr)
 
 
-line_break()
-print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching output
-for s in PERFECT_RHYME:
-    print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
+# line_break()
+# print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching output
+# for s in PERFECT_RHYME:
+#     print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
-###################
-# END SCRUB TESTS #
-###################
+# ###################
+# # END SCRUB TESTS #
+# ###################
 
-#########################
-# BEGIN DETECTION TESTS #
-#########################
+# #########################
+# # BEGIN DETECTION TESTS #
+# #########################
 
-line_break()
-horiz_line()
-print("Now comes the detection output:")
-horiz_line()
+# line_break()
+# horiz_line()
+# print("Now comes the detection output:")
+# horiz_line()
 
 line_break()
 print("TEST FOR PERFECT RHYME:")                                          # test that perfect rhyme detection works
@@ -477,163 +481,168 @@ print(BREAK_PERFECT_RHYME)                                                  # 'T
 print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: False (boo! :( )
 
 line_break()
-print("TEST FOR ALLITERATION RHYME:")
-print(ALLITERATION_RHYME1)
-print(detect_alliteration(ALLITERATION_RHYME1[0]))
+print("TEST FOR PERFECT RHYME:")                                                        # test that perfect rhyme doesnt give false positives
+print(BREAK_PERFECT_RHYME_YET_AGAIN)                                                    # 'Nice try Johnny boy your effort was good', 'but I have a leg up or at least a foot']
+print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME_YET_AGAIN[0], BREAK_PERFECT_RHYME_YET_AGAIN[1])) # Expected: False (boo! :( )
 
-line_break()
-print(ALLITERATION_RHYME2)
-print(detect_alliteration(ALLITERATION_RHYME2[0]))
+# line_break()
+# print("TEST FOR ALLITERATION RHYME:")
+# print(ALLITERATION_RHYME1)
+# print(detect_alliteration(ALLITERATION_RHYME1[0]))
 
-line_break()
-print("TEST FOR ASSONANCE RHYME WITHIN LINE:")
-print(ASSONANCE_RHYME)
-print(detect_assonance_in_line(ASSONANCE_RHYME[0]))
+# line_break()
+# print(ALLITERATION_RHYME2)
+# print(detect_alliteration(ALLITERATION_RHYME2[0]))
 
-line_break()
-print("TEST FOR MATCHING PHONEMES:")
-print(find_matching_phonemes(transcribe_string(PERFECT_RHYME[0]), transcribe_string(PERFECT_RHYME[1])))
+# line_break()
+# print("TEST FOR ASSONANCE RHYME WITHIN LINE:")
+# print(ASSONANCE_RHYME)
+# print(detect_assonance_in_line(ASSONANCE_RHYME[0]))
 
-########################
-# END DETECTION TESTS #
-########################
+# line_break()
+# print("TEST FOR MATCHING PHONEMES:")
+# print(find_matching_phonemes(transcribe_string(PERFECT_RHYME[0]), transcribe_string(PERFECT_RHYME[1])))
 
-#########################
-# BEGIN SYLLABLE TESTS #
-#########################
+# ########################
+# # END DETECTION TESTS #
+# ########################
 
-line_break()
-horiz_line()
-print("Jay C in the hiz-house testing dem syllables:")
-horiz_line()
+# #########################
+# # BEGIN SYLLABLE TESTS #
+# #########################
 
-line_break()
-print("TEST FOR SINGLE WORD:") # next test: mack-er-el
-print("AMAZING")
-print(syllable_count(transcribe_string("amazing")))
-print(syllable_word(transcribe_string("amazing")))
-print(transcribe_string("amazing"))
+# line_break()
+# horiz_line()
+# print("Jay C in the hiz-house testing dem syllables:")
+# horiz_line()
 
-line_break()
-print("TEST SYLLABLE_WORD METHOD:")
-print "hello"
-print syllable_word((transcribe_string("hello")))
-print len(syllable_word((transcribe_string("hello"))))  # Expected: 2 yay!
-line_break()
-print "this"
-print syllable_word((transcribe_string("this")))
-print len(syllable_word((transcribe_string("this"))))  # Expected: 3 yay!
-line_break()
-print "bottle"
-print syllable_word((transcribe_string("bottle")))
-print len(syllable_word((transcribe_string("bottle"))))  # Expected: 2 yay!
-line_break()
-print "is"
-print syllable_word((transcribe_string("is")))
-print len(syllable_word((transcribe_string("is"))))  # Expected: 3 yay!
-line_break()
-print "wonderful"
-print syllable_word((transcribe_string("wonderful")))
-print len(syllable_word((transcribe_string("wonderful"))))  # Expected: 3 yay!
-line_break()
-print "clocks"
-print syllable_word((transcribe_string("clocks")))
-print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
+# line_break()
+# print("TEST FOR SINGLE WORD:") # next test: mack-er-el
+# print("AMAZING")
+# print(syllable_count(transcribe_string("amazing")))
+# print(syllable_word(transcribe_string("amazing")))
+# print(transcribe_string("amazing"))
 
-line_break()
-print("TEST SYLLABLE_STRING METHOD:")
-print("hello this bottle is wonderful")
-print(syllable_string("hello this bottle is wonderful"))
+# line_break()
+# print("TEST SYLLABLE_WORD METHOD:")
+# print "hello"
+# print syllable_word((transcribe_string("hello")))
+# print len(syllable_word((transcribe_string("hello"))))  # Expected: 2 yay!
+# line_break()
+# print "this"
+# print syllable_word((transcribe_string("this")))
+# print len(syllable_word((transcribe_string("this"))))  # Expected: 3 yay!
+# line_break()
+# print "bottle"
+# print syllable_word((transcribe_string("bottle")))
+# print len(syllable_word((transcribe_string("bottle"))))  # Expected: 2 yay!
+# line_break()
+# print "is"
+# print syllable_word((transcribe_string("is")))
+# print len(syllable_word((transcribe_string("is"))))  # Expected: 3 yay!
+# line_break()
+# print "wonderful"
+# print syllable_word((transcribe_string("wonderful")))
+# print len(syllable_word((transcribe_string("wonderful"))))  # Expected: 3 yay!
+# line_break()
+# print "clocks"
+# print syllable_word((transcribe_string("clocks")))
+# print len(syllable_word((transcribe_string("clocks"))))  # Expected: 1 yay!
 
-line_break()
-print("TEST SYLLABLE TOTAL METHOD:")
-pprint.pprint(LOSE_YOURSELF)
-lose_yourself_total_syllables = syllable_total(LOSE_YOURSELF)
-print(lose_yourself_total_syllables)
+# line_break()
+# print("TEST SYLLABLE_STRING METHOD:")
+# print("hello this bottle is wonderful")
+# print(syllable_string("hello this bottle is wonderful"))
 
-line_break()
-print("FIND SYLLABLE COUNTS OF LOSE YOURSELF")
-for x in lose_yourself_total_syllables:
-    print(len(x))
+# line_break()
+# print("TEST SYLLABLE TOTAL METHOD:")
+# pprint.pprint(LOSE_YOURSELF)
+# lose_yourself_total_syllables = syllable_total(LOSE_YOURSELF)
+# print(lose_yourself_total_syllables)
 
-line_break()
-print("TEST SYLLABLE TOTAL METHOD, HOL UP:")
-pprint.pprint(HOL_UP)
-hol_up_total_syllables = syllable_total(HOL_UP)
-print(hol_up_total_syllables)
+# line_break()
+# print("FIND SYLLABLE COUNTS OF LOSE YOURSELF")
+# for x in lose_yourself_total_syllables:
+#     print(len(x))
 
-line_break()
-print("FIND SYLLABLE COUNT OF HOL UP")
-for x in hol_up_total_syllables:
-    print(len(x))
+# line_break()
+# print("TEST SYLLABLE TOTAL METHOD, HOL UP:")
+# pprint.pprint(HOL_UP)
+# hol_up_total_syllables = syllable_total(HOL_UP)
+# print(hol_up_total_syllables)
 
-print("TEST SYLLABLE NO BOUNDARIES:")
-pprint.pprint(SAMPLE_TEXT)
-print(syllable_string_no_word_boundaries(SAMPLE_TEXT))
+# line_break()
+# print("FIND SYLLABLE COUNT OF HOL UP")
+# for x in hol_up_total_syllables:
+#     print(len(x))
 
-########################
-# END SYLLABLE TESTS #
-########################
+# print("TEST SYLLABLE NO BOUNDARIES:")
+# pprint.pprint(SAMPLE_TEXT)
+# print(syllable_string_no_word_boundaries(SAMPLE_TEXT))
 
-####################
-# BEGIN FREQ TESTS #
-####################
+# ########################
+# # END SYLLABLE TESTS #
+# ########################
 
-line_break()
-horiz_line()
-print("Mack-lemore & Jay-C Collab on Frequency Methods, Ass & All")
-horiz_line()
+# ####################
+# # BEGIN FREQ TESTS #
+# ####################
 
-line_break()
-print("TESTING VOWEL_FREQ")
-print(SAMPLE_TEXT)
-print(transcribe_string(SAMPLE_TEXT))
-vowel_od_1 = vowel_freq(transcribe_string(SAMPLE_TEXT))
-for k, v in vowel_od_1.items():
-    print k, v
+# line_break()
+# horiz_line()
+# print("Mack-lemore & Jay-C Collab on Frequency Methods, Ass & All")
+# horiz_line()
 
-line_break()
-print("TESTING VOWEL FREQ MORE SERIOUSLY")
-print(LOSE_YOURSELF)
-print(transcribe_list(LOSE_YOURSELF))
-vowel_od_2 = []
-for l in LOSE_YOURSELF:
-    vowel_od_2.append(vowel_freq(transcribe_string(l)))
+# line_break()
+# print("TESTING VOWEL_FREQ")
+# print(SAMPLE_TEXT)
+# print(transcribe_string(SAMPLE_TEXT))
+# vowel_od_1 = vowel_freq(transcribe_string(SAMPLE_TEXT))
+# for k, v in vowel_od_1.items():
+#     print k, v
 
-for x in vowel_od_2:
-    print("\n")
-    for k, v in x.items():
-        print k, v
+# line_break()
+# print("TESTING VOWEL FREQ MORE SERIOUSLY")
+# print(LOSE_YOURSELF)
+# print(transcribe_list(LOSE_YOURSELF))
+# vowel_od_2 = []
+# for l in LOSE_YOURSELF:
+#     vowel_od_2.append(vowel_freq(transcribe_string(l)))
 
-line_break()
-print("TESTING ALLITERATION_FREQ")
-print(ALLITERATION_RHYME1[0])
-print(transcribe_string(ALLITERATION_RHYME1[0]))
-allit_od_1 = allit_freq(transcribe_string(ALLITERATION_RHYME1[0]))
-for k, v in allit_od_1.items():
-    print k, v
+# for x in vowel_od_2:
+#     print("\n")
+#     for k, v in x.items():
+#         print k, v
 
-##################
-# END FREQ TESTS #
-##################
+# line_break()
+# print("TESTING ALLITERATION_FREQ")
+# print(ALLITERATION_RHYME1[0])
+# print(transcribe_string(ALLITERATION_RHYME1[0]))
+# allit_od_1 = allit_freq(transcribe_string(ALLITERATION_RHYME1[0]))
+# for k, v in allit_od_1.items():
+#     print k, v
 
-#####################
-# BEGIN MULTI TESTS #
-#####################
+# ##################
+# # END FREQ TESTS #
+# ##################
 
-horiz_line()
-print("TESTING MULTISYLLABIC RHYMES BRACE YOUR ASSONANCE")
-horiz_line()
+# #####################
+# # BEGIN MULTI TESTS #
+# #####################
 
-line_break()
-print(LOSE_YOURSELF[3])
-print(LOSE_YOURSELF[4])
-pprint.pprint(multi_sequence(LOSE_YOURSELF[3],LOSE_YOURSELF[4]))
+# horiz_line()
+# print("TESTING MULTISYLLABIC RHYMES BRACE YOUR ASSONANCE")
+# horiz_line()
 
-###################
-# END MULTI TESTS #
-###################
+# line_break()
+# print(LOSE_YOURSELF[3])
+# print(LOSE_YOURSELF[4])
+# pprint.pprint(multi_sequence(LOSE_YOURSELF[3],LOSE_YOURSELF[4]))
 
-#####################
-# END TEST SECTION #
-#####################
+# ###################
+# # END MULTI TESTS #
+# ###################
+
+# #####################
+# # END TEST SECTION #
+# #####################

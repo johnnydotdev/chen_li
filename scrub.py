@@ -1,3 +1,10 @@
+# scrub_lyrics(text)
+# Description:  takes a text file of lyrics and scrubs 
+# 			  file from other text from the website, new lines,
+# 			  and punctuation (besides apostrophes)
+# param      :  the name of a text file that has lyrics from AZLyrics
+# return     :  scrubbed lyrics
+
 def scrub_lyrics(text):
 	big_ass_text = open(text)
 	lines = big_ass_text.readlines()

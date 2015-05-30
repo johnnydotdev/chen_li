@@ -1,8 +1,13 @@
-
-#!/usr/bin/python
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from pyvirtualdisplay import Display
+
+
+# search_lyrics(artist, name)
+# Description: takes in an artist and the title of a song
+# 			   and retrieves its lyrics from AZLyrics.com
+# param	     : artist, string name of artist; name, song title
+# return 	 : un-scrubbed lyrics
 
 def search_lyrics(artist, name):
 	search = artist + " " + name # what to enter in the search bar
