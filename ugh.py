@@ -1,7 +1,13 @@
-#!/usr/bin/python
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from pyvirtualdisplay import Display
+
+
+# search_lyrics(artist, name)
+# Description: takes in an artist and the title of a song
+# 			   and retrieves its lyrics from AZLyrics.com
+# param	     : artist, string name of artist; name, song title
+# return 	 : un-scrubbed lyrics
 
 def search_lyrics(artist, name):
 	search = artist + " " + name # what to enter in the search bar
@@ -10,29 +16,24 @@ def search_lyrics(artist, name):
 	display.start()
 
 	driver = webdriver.Firefox()
-#	driver.get("http://search.azlyrics.com/")	# navigte to azlyrics
-#	search_bar = driver.find_element_by_name("q")
-#	search_bar.send_keys(search + Keys.RETURN)
-#
-#	link = driver.find_element_by_xpath("//td[@class='text-left visitedlyr']/a[1]").get_attribute('href') 	# first search result
-#	driver.get(link)
-#
-#	# eventually add a statement here that checks if the song title matches, if no go back and select next link
-#	# driver.find_element_by_xpath("//div[@class='col-xs-12 col-lg-8 text-center']/b[1]").text
-#
-#	text = driver.find_element_by_xpath("//div[not(@class)]").text()
-#	# ugh = driver.execute_script("return arguments[0].innerText", text)
-#
-#	print text
+	driver.get("http://azlyrics.com/")	# navigte to azlyrics
+	search_bar = driver.find_element_by_name("q")
+	search_bar.send_keys(search + Keys.RETURN)
 
-        # i'm cheating here
-        driver.get("http://www.azlyrics.com/lyrics/eminem/rapgod.html")
+	link = driver.find_element_by_xpath("//td[@class='text-left visitedlyr']/a[1]").get_attribute('href') 	# first search result
+	driver.get(link)
 
-        hacky_text = driver.find_element_by_css_selector('.col-xs-12.col-lg-8.text-center').text
-        print hacky_text
+ 	# eventually add a statement here that checks if the song title matches, if no go back and select next link
+
+
+	# # i'm cheating here
+
+	hacky_text = driver.find_element_by_css_selector('.col-xs-12.col-lg-8.text-center').text
 
 	driver.quit()
 	display.stop()
 
+	return hacky_text
 
-search_lyrics("eminem", "rap god")
+
+print search_lyrics("", "hello seattle")

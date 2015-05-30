@@ -2,21 +2,27 @@
 
 #############################################
 # TODO: add error detection and error messages
-# TODO: add better perfect rhyme detection
+# TODO: add better perfect rhyme detection <-- DONE???
 # TODO: add scoring
 # TODO: add support for more than 1 text file
-# TODO: add detection of more rhymes
-# TODO: lots of other shit basically
-# TODO: separate methods from testing
+# TODO: add detection of more rhymes <-- DONE
+# TODO: lots of other shit basically <-- Well... yeah
+# TODO: separate methods from testing <-- what's dat mean
 # TODO: change methods to use already transcribed strings (you know, speed probably)
-# TODO: multi syllabic rhymes
-# TODO: scrape AZ Lyrics and scrub *DONT TOUCH DIS IS MINE*
-# TODO: denstiy plot of rhymes <-- take a look at my allit and asso methods for a start
+# TODO: multi syllabic rhymes <-- DONE
+# TODO: scrape AZ Lyrics and scrub <-- basics are done
+# TODO: denstiy plot of rhymes
 # TODO: pick out a nonwestern for us to take spring semester
-# TODO: nice todo, also scrub rhymes for punctuation because CMU dict is fucking stupid
+# TODO: nice todo, also scrub rhymes for punctuation because CMU dict is fucking stupid <-- DONE
 ########################## big one
-# TODO: measure *based on syllables*
+# TODO: measure *based on syllables* <-- whats dat mean
 #############################################
+# NEW TODOS
+# TODO: handle words not in cmudict
+# TODO: make big wrap method that does all rhyme detection
+# TODO: error handling with web scraping (ie no results or first result is not right one)
+# TODO: put scraping and processing together
+# TODO: find_matching_phonemes needs some love or to be deleted
 
 import sys
 import nltk
@@ -46,6 +52,9 @@ PERFECT_RHYME = ["This is a perfect rhyme",
 BREAK_PERFECT_RHYME = ["This is NOT a perfect rhyme and with some luck",
                        "The method will know this and not be a dick"]
 
+BREAK_PERFECT_RHYME_YET_AGAIN = ["Nice try Johnny boy your effort was good",
+                                "but I have a leg up or at least a foot"]
+
 ALLITERATION_RHYME1 = ["Look I was gonna go easy on you and not to hurt your feelings",
                       "But I'm only going to get this one chance"]
 
@@ -68,6 +77,8 @@ HOL_UP = ["I wrote this record while thirty thousand feet in the air",
           "A crash dummy for dollars I know you dying to meet them",
           "I'll holly die in a minute just bury me",
           "With twenty bitches twenty million and a Cop town fitted"]
+
+GET_RID_OF_DAT_PUNCT = "This'll, have: a; (ton) of _pointless -punctuation"
 
 transcr = cmudict.dict()
 
@@ -107,6 +118,25 @@ def read_and_scrub_text_file(i):
 
     return lines_scrubbed
 
+# scrub_punct(lines)
+# Description: takes a line and scrubs it of all punctuation
+# param      : a string
+# return     : a punctuation scrubbed string (oooo, ahhhhh)
+
+def scrub_punct(lines):
+    line = lines.split()                        # list of words in line
+    temp_line = []                              # scrubbed line
+    for j in line:                              # go word by word
+        if j.isalpha():                         # no punctuation to remove in this word in the line
+            temp_line.append(j)                 # add normaly
+        else:                                   # there is punctuation to remove
+            temp_word = []
+            for k in j:                         # go letter by letter
+                if k.isalpha() or k == "'":     # this is not a punctuation character
+                    temp_word.append(k)         # add to the currnet scrubbed word
+            temp_line.append("".join(temp_word))
+    return (" ".join(temp_line))                # add to list of scrubbed lines
+
 # transcribe_string(string)
 # Description: transcribes a string into its phonemes and prints the result out.
 # param      : string str to transcribe
@@ -140,23 +170,24 @@ def detect_perfect_rhyme_two_lines(a, b):
     a_syl = syllable_string(a) # Transcribe string a into its syllables
     b_syl = syllable_string(b) # Transcribe string b into its syllables 
 
-    a_last = a_syl[-1]
-    b_last = b_syl[-1]
+    print a_syl
+    print b_syl
 
-    vowel_target = "fuck"
+    a_last = a_syl[-1][0]                                               # get last word of each line
+    b_last = b_syl[-1][0]
 
-    for x in a_last:
-        for p in x:
-            if is_vowel(p):
-                vowel_target = p
-                break
-    
-    for x in b_last:
-        for p in x:
-            if is_vowel(p):
-                if vowel_target == p:
-                    return True
-    
+    print a_last
+    print b_last
+
+    a_index = len(a_last)-1                                             # index of last phoneme
+    b_index = len(b_last)-1
+    while min(a_index, b_index) >= 0:                                   # while the smaller index is greater than 0
+        if a_last[a_index] != b_last[b_index]:                          # if phonemes don't match, not a perfect rhyme
+            break
+        if is_vowel(a_last[a_index]) and a_index < len(a_last):         # if we hit a vowel and this vowel is not the last phoneme in the word    
+            return True                                                 # ^ this prevents words like gamma and camera from being considered perfect rhyme
+        a_index-=1
+        b_index-=1
     return False
 
 # detect_alliteration(a)
@@ -327,7 +358,7 @@ def find_matching_phonemes(a, b):
 # Description: creates a frequency dict of phonemes in a line and sorts by frequency of appearance
 # param      : transcribed line to scanalyze (I am a born rapper)
 # return     : sorted frequency dict by number of phonemes (type OrderedDict)
-# note       : in hindsight this might be totally unnecessary
+# note       : in hindsight this might be totally unnecessary <-- i dont think it is since your vowel freq and allit freq do this for the phonemes we care about
 
 def phoneme_freq(l):
     d = defaultdict(int) # default dict with value int
@@ -340,7 +371,7 @@ def phoneme_freq(l):
     
     return od
 
-# vowel_freq(l), originally named ass_freq(l)
+# vowel_freq(l), originally named ass_freq(l) <-- haha, not everything has to do with your ass johnny
 # Description: shows the most frequent vowels in that line
 # param      : transcribed list of phonemes (only one string)
 # return     : OrderedDict of vowel phonemes to their frequency of appearance
@@ -392,7 +423,7 @@ def extract_vowels(l):
 # return     : longest matching sequence between the two
 
 def multi_sequence(a, b):
-    syll_a = syllable_string_no_word_boundaries(a) # i realized how stupid this was after i wrote it... don't comment
+    syll_a = syllable_string_no_word_boundaries(a) # i realized how stupid this was after i wrote it... don't comment :)
     syll_b = syllable_string_no_word_boundaries(b)
 
     vowels_a = extract_vowels(syll_a)
@@ -400,7 +431,7 @@ def multi_sequence(a, b):
 
     sequence = []
 
-    for i in range(-1, -1 * min(len(a), len(b)), -1): # loop from the end of each array in steps of -1
+    for i in range(-1, -1 * min(len(a), len(b)), -1): # loop from the end of each array in steps of -1 <- very clever
         if vowels_a[i] == vowels_b[i]:
             sequence.insert(0, vowels_a[i])
         else:
@@ -452,6 +483,11 @@ print("TEST FOR MATCH: transcribe_list(PERFECT_RHYME)") # test for matching outp
 for s in PERFECT_RHYME:
     print(transcribe_string(s))                         # transcribe_list ouputs match! yay!
 
+line_break()
+print("TEST FOR PUNCTUATION SCRUBBING:")
+print GET_RID_OF_DAT_PUNCT
+print scrub_punct(GET_RID_OF_DAT_PUNCT)
+
 ###################
 # END SCRUB TESTS #
 ###################
@@ -475,6 +511,11 @@ line_break()
 print("TEST FOR PERFECT RHYME:")                                            # test that perfect rhyme doesnt give false positives
 print(BREAK_PERFECT_RHYME)                                                  # 'This is NOT a perfect rhyme and with some luck', 'The method will know this and not be a dick']
 print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME[0], BREAK_PERFECT_RHYME[1])) # Expected: False (boo! :( )
+
+line_break()
+print("TEST FOR PERFECT RHYME:")                                                        # test that perfect rhyme doesnt give false positives
+print(BREAK_PERFECT_RHYME_YET_AGAIN)                                                    # 'Nice try Johnny boy your effort was good', 'but I have a leg up or at least a foot']
+print(detect_perfect_rhyme_two_lines(BREAK_PERFECT_RHYME_YET_AGAIN[0], BREAK_PERFECT_RHYME_YET_AGAIN[1])) # Expected: False (boo! :( )
 
 line_break()
 print("TEST FOR ALLITERATION RHYME:")
