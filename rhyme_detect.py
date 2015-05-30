@@ -7,22 +7,24 @@
 # TODO: add support for more than 1 text file
 # TODO: add detection of more rhymes <-- DONE
 # TODO: lots of other shit basically <-- Well... yeah
-# TODO: separate methods from testing <-- what's dat mean
+# TODO: separate methods from testing <-- what's dat mean <- I'll take care of this
 # TODO: change methods to use already transcribed strings (you know, speed probably)
 # TODO: multi syllabic rhymes <-- DONE
 # TODO: scrape AZ Lyrics and scrub <-- basics are done
 # TODO: denstiy plot of rhymes
 # TODO: pick out a nonwestern for us to take spring semester
 # TODO: nice todo, also scrub rhymes for punctuation because CMU dict is fucking stupid <-- DONE
-########################## big one
-# TODO: measure *based on syllables* <-- whats dat mean
+# TODO: measure *based on syllables* <-- whats dat mean <- nvm
+#############################################
+
 #############################################
 # NEW TODOS
-# TODO: handle words not in cmudict
+# TODO: handle words not in cmudict <- this is hard
 # TODO: make big wrap method that does all rhyme detection
 # TODO: error handling with web scraping (ie no results or first result is not right one)
 # TODO: put scraping and processing together
 # TODO: find_matching_phonemes needs some love or to be deleted
+#############################################
 
 import sys
 import nltk
