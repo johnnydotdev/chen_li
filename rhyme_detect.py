@@ -308,7 +308,7 @@ def syllable_string(s):
     ret = []
     l = s.split(' ')
 
-    for w in l:                     # for every word in the list
+    for w in l:                                        # for every word in the list
        ret.append(syllable_word(transcribe_string(w))) # syllable-ize that word
 
     return ret
@@ -317,6 +317,7 @@ def syllable_string(s):
 # Description: we want a list of syllables for the string you enter, without word divisions
 # param      : string, not already transcribed
 # return     : list of syllables
+#            : I now realize how stupid this method was
 
 def syllable_string_no_word_boundaries(s):
     ret = []
@@ -330,8 +331,9 @@ def syllable_string_no_word_boundaries(s):
     return ret
 
 # syllable_total(l)
-# param: *not already trancribed* list of strings
-# return: big list of syllables per line (NOT BY WORD, as in: unseparated)
+# Description: Stupid Method
+# param      : *not already trancribed* list of strings
+# return     : big list of syllables per line (NOT BY WORD, as in: unseparated)
 
 def syllable_total(l):
     ret = []
@@ -361,7 +363,7 @@ def find_matching_phonemes(a, b):
 # note       : in hindsight this might be totally unnecessary <-- i dont think it is since your vowel freq and allit freq do this for the phonemes we care about
 
 def phoneme_freq(l):
-    d = defaultdict(int) # default dict with value int
+    d = defaultdict(int)                                      # default dict with value int
 
     for w in l:                                               # for every word in the list
         for p in w:                                           # and every phoneme in the word
@@ -377,12 +379,12 @@ def phoneme_freq(l):
 # return     : OrderedDict of vowel phonemes to their frequency of appearance
 
 def vowel_freq(l):
-    d = defaultdict(int) # create defaultdict
+    d = defaultdict(int)                                                      # create defaultdict
 
-    for w in l:             # for every word in the list of lists of phonemes
-        for p in w:         # for every list of phonemes
-            if is_vowel(p): # if that is a vowel
-                d[p] += 1   # increment its count in the dictionary
+    for w in l:                                                               # for every word in the list of lists of phonemes
+        for p in w:                                                           # for every list of phonemes
+            if is_vowel(p):                                                   # if that is a vowel
+                d[p] += 1                                                     # increment its count in the dictionary
 
     od = OrderedDict(sorted(d.items(), key = lambda t: t[1], reverse = True)) # add these in descending order to the OrderedDict
 
@@ -394,10 +396,10 @@ def vowel_freq(l):
 # return     : OrderedDict of alliteration phonemes to their frequency of appearance in *descending order*
 
 def allit_freq(l):
-    d = defaultdict(int) # create defaultdict
+    d = defaultdict(int)                                                      # create defaultdict
 
-    for w in l: # for every list in the list of phonemes
-        d[w[0]] += 1 # add its first sound to the default dictionary
+    for w in l:                                                               # for every list in the list of phonemes
+        d[w[0]] += 1                                                          # add its first sound to the default dictionary
 
     od = OrderedDict(sorted(d.items(), key = lambda t: t[1], reverse = True)) # add these in descending order to the OrderedDict
 
@@ -411,8 +413,8 @@ def allit_freq(l):
 def extract_vowels(l):
     ret = []
 
-    for x in l        : # for every phoneme in the list
-        if is_vowel(x): # if it belongs to the list of vowels
+    for x in l        :   # for every phoneme in the list
+        if is_vowel(x):   # if it belongs to the list of vowels
             ret.append(x) # add that to the return list
     
     return ret
@@ -431,7 +433,7 @@ def multi_sequence(a, b):
 
     sequence = []
 
-    for i in range(-1, -1 * min(len(a), len(b)), -1): # loop from the end of each array in steps of -1 <- very clever
+    for i in range(-1, -1 * min(len(a), len(b)), -1): # loop from the end of each array in steps of -1 <- very clever <- xie xie
         if vowels_a[i] == vowels_b[i]:
             sequence.insert(0, vowels_a[i])
         else:
