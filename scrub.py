@@ -16,6 +16,8 @@ def scrub_lyrics(text):
 		if lines[i] == "\n":						# don't add blank lines
 			continue
 
+##### NOTE FROM HERE ON IS A METHOD IN RHYME DETECT, SO WHEN WE PUT THEM TOGETHER CHANGE THIS TO METHOD ########
+
 		line = lines[i].split()						# this is a line we want to process
 		temp_line = []								# current scrubbed line
 		for j in line:								# go word by word
