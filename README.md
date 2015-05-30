@@ -5,7 +5,11 @@
 
 ###My setup:
 - Python 2.7.6
-- NLTK 3.0.2 (latest release)
+- NLTK 3.0.2
+- pytest 2.7.1
+
+###How to test:
+Run `py.test`. That's it!
 
 ###How to run:
 *You only need to do this once, this is so you can execute with just the file*
