@@ -28,3 +28,40 @@ class TestRhymeDetection(unittest.TestCase):
         )
         return
 
+    def test_syllable_count(self):
+        self.assertEqual(
+                # From Merriam Webster Dictionary
+                # WONDERFUL: WON . DER . FUL
+                # 3 syllables
+                3, 
+                syllable_count(transcribe_string("wonderful"))
+            )
+        return
+
+    def test_is_vowel(self):
+        self.assertEqual(
+                # From the CMU Pronouncing Dictionary
+                # Vowels: 'AA', 'AE', 'AH', 'AO', 'AW', 'AY', 'EH', 'ER', 'EY', 'IH', 'IY', 'OW', 'OY', 'UH', 'UW'
+                True,
+                is_vowel("IH1")
+            )
+        return
+
+    def test_scrub_punct(self):
+        self.assertEqual(
+                # ... I don't really have an official source for this one... my brain?
+                "This'll have a ton of pointless punctuation",
+                scrub_punct("This'll, have: a; (ton) of _pointless -punctuation")
+            )
+        return
+
+    def test_detect_perfect_rhyme_two_lines(self):
+        self.assertEqual(
+                # From Rap Genius: http://genius.com/posts/24-Rap-genius-university-rhyme-types
+                # Definition of a perfect rhyme: a rhyme in which the endings of words sound exactly the same
+                True,
+                detect_perfect_rhyme_two_lines("Totally a hundred grand", "Cannon in the waist band")
+            )
+        return
+
+
