@@ -367,6 +367,23 @@ def extract_vowels(l):
     
     return ret
 
+def extract_vowels_from_string(l):
+    """
+    Extracts vowels from an untranscribed string.
+        param: untranscribed string
+        return: list of vowels inside untranscribed string
+    """
+    ret = []
+    transcr_lst = transcribe_string(l)
+
+    for s in transcr_lst:
+        vowels = extract_vowels(s)
+        for v in vowels:
+            ret.append(v)
+
+    return ret
+    
+
 # multi_sequence(a, b)
 # Description: What is the longest ending multisyllabic rhyme between 2 lines?
 # param      : untranscribed string a, b

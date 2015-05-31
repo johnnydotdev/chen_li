@@ -28,3 +28,16 @@ class TestRhymeDetection(unittest.TestCase):
         )
         return
 
+    def test_extract_vowels(self):
+        self.assertEqual(
+                ['AE1', 'ER0', 'AH0'],
+                extract_vowels(transcribe_string("Mackerel bat from hell")[0])
+        )
+        return
+
+    def test_extract_vowels_from_string(self):
+        self.assertEqual(
+                ['AE1', 'ER0', 'AH0', 'AE1', 'AH1', 'EH1'],
+                extract_vowels_from_string("Mackerel bat from hell")
+        )
+        return
