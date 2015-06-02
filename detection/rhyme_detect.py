@@ -364,7 +364,6 @@ def extract_vowels(l):
     for x in l        :   # for every phoneme in the list
         if is_vowel(x):   # if it belongs to the list of vowels
             ret.append(x) # add that to the return list
-    
     return ret
 
 # multi_sequence(a, b)
